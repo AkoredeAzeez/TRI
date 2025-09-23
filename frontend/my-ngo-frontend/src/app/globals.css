@@ -1,26 +1,425 @@
-@import "tailwindcss";
+/* globals.css - Updated with Cherish Branding */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Cherish Font Import */
+@font-face {
+  font-family: 'Cherish';
+  src: url('/fonts/Cherish.ttf') format('truetype'),
+       url('/fonts/Cherish.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html, body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #FFEFCD 0%, #A58E74 50%, #E09132 100%);
+  color: #424530;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Design System Tokens - Cherish Brand Colors */
+:root {
+  /* Cherish Color Palette */
+  --warm-ivory: #FFEFCD;
+  --natural: #A58E74;
+  --apricot: #E09132;
+  --fern: #424530;
+  
+  /* Brand Gradients */
+  --primary-gradient: linear-gradient(135deg, #E09132, #A58E74);
+  --secondary-gradient: linear-gradient(135deg, #A58E74, #FFEFCD);
+  --accent-gradient: linear-gradient(135deg, #424530, #A58E74);
+  --warm-gradient: linear-gradient(135deg, #FFEFCD, #E09132);
+  
+  /* Glass Effects with Brand Colors */
+  --glass-bg: rgba(255, 239, 205, 0.15);
+  --glass-border: rgba(165, 142, 116, 0.3);
+  --glass-shadow: 0 8px 32px 0 rgba(66, 69, 48, 0.2);
+  
+  /* Animation Timings */
+  --transition-fast: 0.2s ease-out;
+  --transition-normal: 0.3s ease-out;
+  --transition-slow: 0.5s ease-out;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #FFEFCD 0%, #A58E74 50%, #E09132 100%);
+  color: var(--fern);
+  overflow-x: hidden;
+}
+
+/* Utility Classes */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: var(--glass-shadow);
+  transition: all var(--transition-normal);
+}
+
+.glass-card:hover {
+  background: rgba(255, 239, 205, 0.25);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px 0 rgba(66, 69, 48, 0.3);
+}
+
+.gradient-primary {
+  background: var(--primary-gradient);
+}
+
+.gradient-secondary {
+  background: var(--secondary-gradient);
+}
+
+.gradient-accent {
+  background: var(--accent-gradient);
+}
+
+.gradient-warm {
+  background: var(--warm-gradient);
+}
+
+.gradient-text {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Floating Particles Background */
+.particles-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, rgba(224, 145, 50, 0.3) 0%, rgba(165, 142, 116, 0.1) 100%);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: float 20s infinite ease-in-out;
+}
+
+/* Buttons */
+.btn-futuristic {
+  background: var(--primary-gradient);
+  border: none;
+  border-radius: 50px;
+  padding: 16px 32px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--warm-ivory);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: 0 8px 25px rgba(224, 145, 50, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-futuristic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 239, 205, 0.3), transparent);
+  transition: all var(--transition-slow);
+}
+
+.btn-futuristic:hover::before {
+  left: 100%;
+}
+
+.btn-futuristic:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(224, 145, 50, 0.5);
+}
+
+.btn-ghost {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--glass-border);
+  border-radius: 50px;
+  padding: 16px 32px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--fern);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 239, 205, 0.3);
+  transform: translateY(-3px) scale(1.05);
+  border-color: var(--natural);
+}
+
+/* Section Backgrounds */
+.section-bg-1 {
+  background: linear-gradient(135deg, #FFEFCD 0%, #A58E74 50%, #E09132 100%);
+}
+
+.section-bg-2 {
+  background: linear-gradient(135deg, #E09132 0%, #A58E74 50%, #424530 100%);
+}
+
+.section-bg-3 {
+  background: linear-gradient(135deg, #A58E74 0%, #424530 50%, #FFEFCD 100%);
+}
+
+/* Typography */
+.heading-futuristic, .cherish-heading {
+  font-family: 'Cherish', serif;
+  font-size: clamp(2rem, 8vw, 4rem);
+  font-weight: normal;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+.subheading-futuristic {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  font-weight: 300;
+  color: var(--fern);
+  opacity: 0.9;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Brand Typography Classes */
+.cherish-script {
+  font-family: 'Cherish', serif;
+  font-weight: normal;
+}
+
+.text-warm-ivory {
+  color: var(--warm-ivory);
+}
+
+.text-natural {
+  color: var(--natural);
+}
+
+.text-apricot {
+  color: var(--apricot);
+}
+
+.text-fern {
+  color: var(--fern);
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px); 
+    opacity: 0.6;
+  }
+  25% { 
+    transform: translateY(-20px) translateX(10px); 
+    opacity: 0.8;
+  }
+  50% { 
+    transform: translateY(-10px) translateX(-5px); 
+    opacity: 0.4;
+  }
+  75% { 
+    transform: translateY(-30px) translateX(15px); 
+    opacity: 0.7;
+  }
+}
+
+@keyframes glow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(224, 145, 50, 0.5);
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(165, 142, 116, 0.7);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+/* Utility Animation Classes */
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+.animate-glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .glass-card {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .btn-futuristic, .btn-ghost {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+  
+  .heading-futuristic, .cherish-heading {
+    font-size: clamp(1.8rem, 6vw, 3rem);
+  }
+}
+
+/* Custom scrollbar with brand colors */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 239, 205, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-gradient);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gradient);
+}
+
+/* Loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(224, 145, 50, 0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Brand-specific component styles */
+.cherish-card {
+  background: rgba(255, 239, 205, 0.9);
+  border: 2px solid var(--natural);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 25px rgba(66, 69, 48, 0.1);
+  transition: all var(--transition-normal);
+}
+
+.cherish-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(66, 69, 48, 0.2);
+  border-color: var(--apricot);
+}
+
+.cherish-accent {
+  background: var(--apricot);
+  color: var(--warm-ivory);
+}
+
+.cherish-natural {
+  background: var(--natural);
+  color: var(--warm-ivory);
+}
+
+.cherish-warm {
+  background: var(--warm-ivory);
+  color: var(--fern);
+}
+
+.cherish-fern {
+  background: var(--fern);
+  color: var(--warm-ivory);
 }
