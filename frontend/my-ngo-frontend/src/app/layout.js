@@ -3,6 +3,7 @@ import "./globals.css";
 import './component.css';
 /*import './animations.css'; /* optional separate file */
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

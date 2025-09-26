@@ -1,10 +1,15 @@
 'use client';
 // components/Hero.jsx
 import { Sparkles } from 'lucide-react';
+
 export default function Hero() {
   return (
-    <section className="hero-container">
-      <div className="hero-background" />
+    <section className="hero-container-with-bg">
+      {/* Background image layer */}
+      <div className="hero-bg-layer"></div>
+      {/* Overlay for better text readability */}
+      <div className="hero-overlay"></div>
+      {/* Content */}
       <div className="hero-content">
         <div className="hero-icon">
           <Sparkles className="w-10 h-10 text-white" />
@@ -19,6 +24,10 @@ export default function Hero() {
           <button className="btn-futuristic">Donate Now</button>
           <button className="btn-ghost">Volunteer</button>
         </div>
+      </div>
+      {/* Scroll indicator */}
+      <div className="hero-scroll-indicator">
+        <div className="w-6 h-6">↓</div>
       </div>
     </section>
   );
