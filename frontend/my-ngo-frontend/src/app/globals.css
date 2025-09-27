@@ -423,3 +423,91 @@ body {
   background: var(--fern);
   color: var(--warm-ivory);
 }
+
+/* ===== SHARP EDGES UTILITY CLASSES (ADDED FOR ABOUT REDESIGN) ===== */
+
+/* Sharp edge variants for existing components */
+.sharp-edges {
+  border-radius: 0 !important;
+}
+
+.sharp-card {
+  background: var(--warm-ivory);
+  border: 3px solid var(--natural);
+  /* No border-radius for sharp edges */
+  padding: 2rem;
+  box-shadow: 0 8px 25px rgba(165, 142, 116, 0.1);
+  transition: all var(--transition-normal);
+}
+
+.sharp-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(165, 142, 116, 0.2);
+  border-color: var(--apricot);
+}
+
+/* Button variants with sharp edges */
+.btn-sharp-primary {
+  background: var(--apricot);
+  border: 3px solid var(--fern);
+  /* No border-radius for sharp edges */
+  padding: 16px 32px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--warm-ivory);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: 0 8px 25px rgba(224, 145, 50, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-sharp-primary:hover {
+  background: var(--fern);
+  color: var(--warm-ivory);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(66, 69, 48, 0.4);
+}
+
+/* Icon containers with sharp edges */
+.icon-sharp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* No border-radius for sharp edges */
+  transition: all var(--transition-normal);
+}
+
+/* Responsive updates for sharp edges */
+@media (max-width: 768px) {
+  .sharp-card {
+    padding: 1.5rem;
+  }
+  
+  .btn-sharp-primary {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+}
+/* Background Image Utilities - Add at the end of globals.css */
+.hero-bg-image {
+  background-image: url('/img/hero-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Overlay for better text readability */
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 239, 205, 0.7); /* Warm ivory with transparency */
+  z-index: 1;
+}
+
+/* Ensure content stays above overlay */
+.hero-content-elevated {
+  position: relative;
+  z-index: 10;
+}
