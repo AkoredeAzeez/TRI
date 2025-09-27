@@ -53,7 +53,7 @@ export default function About() {
         <div className="founder-section">
           <div className="founder-content">
             <div className="founder-image-container">
-              <div className="founder-placeholder-image">
+              <div className="/public/img/headshot.jpg">
                 <User className="founder-icon" />
               </div>
             </div>
