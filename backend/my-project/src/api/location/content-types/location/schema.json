@@ -1,0 +1,26 @@
+{
+    "kind": "collectionType",
+    "collectionName": "locations",
+    "info": {
+        "singularName": "location",
+        "pluralName": "locations",
+        "displayName": "Location"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "location": {
+            "type": "string",
+            "required": true,
+            "unique": true
+        },
+        "events": {
+            "type": "relation",
+            "relation": "oneToMany",
+            "target": "api::event.event",
+            "mappedBy": "venue"
+        }
+    }
+}

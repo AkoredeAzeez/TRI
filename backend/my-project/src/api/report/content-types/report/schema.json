@@ -1,0 +1,46 @@
+{
+    "kind": "collectionType",
+    "collectionName": "reports",
+    "info": {
+        "singularName": "report",
+        "pluralName": "reports",
+        "displayName": "Report"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "year": {
+            "type": "integer",
+            "required": true,
+            "min": 0,
+            "default": 2000
+        },
+        "type": {
+            "type": "enumeration",
+            "enum": [
+                "Annual Report",
+                "Budget",
+                "Grants/Donors",
+                "Financial Statement",
+                "Auditor Report"
+            ],
+            "required": true
+        },
+        "files": {
+            "type": "media",
+            "multiple": true,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ],
+            "required": true
+        },
+        "summary": {
+            "type": "text"
+        }
+    }
+}

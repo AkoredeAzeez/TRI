@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "beneficiaries",
+  "info": {
+    "singularName": "beneficiary",
+    "pluralName": "beneficiaries",
+    "displayName": "Beneficiary"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "initials": {
+      "type": "string",
+      "maxLength": 5,
+      "required": true,
+      "regex": "[A-Z]+"
+    },
+    "name": {
+      "type": "string"
+    },
+    "story_impacts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::story-impact.story-impact",
+      "inversedBy": "beneficiaries"
+    }
+  }
+}
