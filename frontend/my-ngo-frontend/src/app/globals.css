@@ -1,4 +1,4 @@
-/* globals.css - Updated with Cherish Branding */
+/* globals.css - Updated with Cherish Branding & Multi-Cutout Hero Support */
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
@@ -49,6 +49,11 @@ body {
   --glass-bg: rgba(255, 239, 205, 0.15);
   --glass-border: rgba(165, 142, 116, 0.3);
   --glass-shadow: 0 8px 32px 0 rgba(66, 69, 48, 0.2);
+  
+  /* Cutout & Hero Effects */
+  --cutout-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --cutout-hover-shadow: 0 15px 40px rgba(224, 145, 50, 0.4);
+  --hero-overlay: rgba(66, 69, 48, 0.3);
   
   /* Animation Timings */
   --transition-fast: 0.2s ease-out;
@@ -247,6 +252,75 @@ body {
   color: var(--fern);
 }
 
+/* ===== HERO & CUTOUT SPECIFIC STYLES ===== */
+
+/* Background Image Utilities - Updated with Multi-Cutout Support */
+.hero-bg-image {
+  background-image: url('/img/hero-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Multi-cutout hero utilities */
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--hero-overlay);
+  z-index: 2;
+}
+
+.hero-cutout-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Ensure content stays above all layers */
+.hero-content-elevated {
+  position: relative;
+  z-index: 10;
+}
+
+/* Cutout shape base styles for global use */
+.floating-cutout {
+  position: absolute;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50% 30% 70% 40%;
+  animation: floatGently 8s ease-in-out infinite;
+  box-shadow: var(--cutout-shadow);
+  transition: all var(--transition-normal);
+}
+
+.floating-cutout:hover {
+  transform: scale(1.05);
+  box-shadow: var(--cutout-hover-shadow);
+}
+
+/* Multi-cutout animation variants */
+.cutout-float-1 { animation-delay: 0s; }
+.cutout-float-2 { animation-delay: -1s; }
+.cutout-float-3 { animation-delay: -2s; }
+.cutout-float-4 { animation-delay: -3s; }
+.cutout-float-5 { animation-delay: -4s; }
+.cutout-float-6 { animation-delay: -5s; }
+
+/* Organic shape variations */
+.cutout-organic-1 { border-radius: 60% 40% 30% 70%; }
+.cutout-organic-2 { border-radius: 30% 70% 60% 40%; }
+.cutout-organic-3 { border-radius: 70% 30% 40% 60%; }
+.cutout-organic-4 { border-radius: 40% 60% 70% 30%; }
+.cutout-organic-5 { border-radius: 50% 50% 30% 70%; }
+.cutout-organic-6 { border-radius: 70% 30% 50% 50%; }
+
+/* Size variations for cutouts */
+.cutout-small { width: 120px; height: 150px; }
+.cutout-medium { width: 160px; height: 200px; }
+.cutout-large { width: 200px; height: 240px; }
+
 /* Animations */
 @keyframes float {
   0%, 100% { 
@@ -264,6 +338,21 @@ body {
   75% { 
     transform: translateY(-30px) translateX(15px); 
     opacity: 0.7;
+  }
+}
+
+@keyframes floatGently {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-15px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(-25px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(-1deg);
   }
 }
 
@@ -341,51 +430,8 @@ body {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .glass-card {
-    padding: 1.5rem;
-    margin: 1rem;
-  }
-  
-  .btn-futuristic, .btn-ghost {
-    padding: 12px 24px;
-    font-size: 1rem;
-  }
-  
-  .heading-futuristic, .cherish-heading {
-    font-size: clamp(1.8rem, 6vw, 3rem);
-  }
-}
-
-/* Custom scrollbar with brand colors */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 239, 205, 0.3);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--primary-gradient);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-gradient);
-}
-
-/* Loading states */
-.loading-shimmer {
-  background: linear-gradient(90deg, transparent, rgba(224, 145, 50, 0.1), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+.animate-float-gentle {
+  animation: floatGently 8s ease-in-out infinite;
 }
 
 /* Brand-specific component styles */
@@ -478,8 +524,22 @@ body {
   transition: all var(--transition-normal);
 }
 
-/* Responsive updates for sharp edges */
+/* Responsive Design */
 @media (max-width: 768px) {
+  .glass-card {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .btn-futuristic, .btn-ghost {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+  
+  .heading-futuristic, .cherish-heading {
+    font-size: clamp(1.8rem, 6vw, 3rem);
+  }
+  
   .sharp-card {
     padding: 1.5rem;
   }
@@ -488,26 +548,83 @@ body {
     padding: 12px 24px;
     font-size: 1rem;
   }
-}
-/* Background Image Utilities - Add at the end of globals.css */
-.hero-bg-image {
-  background-image: url('/img/hero-background.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-/* Overlay for better text readability */
-.hero-bg-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 239, 205, 0.7); /* Warm ivory with transparency */
-  z-index: 1;
+  
+  /* Responsive cutouts */
+  .floating-cutout {
+    width: 100px !important;
+    height: 120px !important;
+  }
+  
+  .cutout-small { width: 80px; height: 100px; }
+  .cutout-medium { width: 100px; height: 120px; }
+  .cutout-large { width: 120px; height: 140px; }
 }
 
-/* Ensure content stays above overlay */
-.hero-content-elevated {
-  position: relative;
-  z-index: 10;
+@media (max-width: 480px) {
+  /* Hide cutouts on very small screens */
+  .floating-cutout {
+    display: none;
+  }
+  
+  .hero-bg-overlay {
+    background: rgba(66, 69, 48, 0.5); /* Darker overlay when cutouts hidden */
+  }
+}
+
+/* High resolution displays */
+@media (min-width: 1920px) {
+  .cutout-small { width: 140px; height: 180px; }
+  .cutout-medium { width: 180px; height: 220px; }
+  .cutout-large { width: 220px; height: 260px; }
+}
+
+/* Custom scrollbar with brand colors */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 239, 205, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-gradient);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gradient);
+}
+
+/* Loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(224, 145, 50, 0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Accessibility: Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .floating-cutout,
+  .particle,
+  .hero-icon,
+  .hero-scroll-indicator {
+    animation: none;
+  }
+  
+  .glass-card:hover,
+  .btn-futuristic:hover,
+  .btn-ghost:hover {
+    transform: none;
+  }
+  
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
 }

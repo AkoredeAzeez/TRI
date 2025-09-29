@@ -1,5 +1,6 @@
 'use client';
 import { Heart, Globe, Zap, User } from 'lucide-react';
+import Image from 'next/image';
 
 export default function About() {
   const values = ['Creativity', 'Empowerment', 'Community', 'Opportunity', 'Equity', 'Sustainability'];
@@ -49,27 +50,119 @@ export default function About() {
           </div>
         </div>
 
-        {/* Founder Story Section */}
+        {/* Enhanced Founder Story Section */}
         <div className="founder-section">
-          <div className="founder-content">
-            <div className="founder-image-container">
-              <div className="/public/img/headshot.jpg">
-                <User className="founder-icon" />
-              </div>
+          <div className="founder-hero-container">
+            {/* Decorative Elements */}
+            <div className="founder-decorative-bg">
+              <div className="floating-shape shape-1"></div>
+              <div className="floating-shape shape-2"></div>
+              <div className="floating-shape shape-3"></div>
+              <div className="paint-splash splash-1"></div>
+              <div className="paint-splash splash-2"></div>
             </div>
-            <div className="founder-text-content">
-              <div className="founder-header">
-                <div className="icon-container story-icon">
-                  <Zap className="w-6 h-6 text-white" />
+
+            <div className="founder-content-grid">
+              {/* Image Section with Enhanced Design */}
+              <div className="founder-visual-section">
+                <div className="founder-image-frame">
+                  <div className="image-border-decoration"></div>
+                  <Image 
+                    src="/img/headshot.jpg"
+                    alt="Olivia Eze - Founder of The Redraw Initiative"
+                    width={320}
+                    height={320}
+                    className="founder-actual-image"
+                    priority
+                  />
+                  <div className="image-overlay-pattern"></div>
                 </div>
-                <h3 className="founder-title">Our Story</h3>
+                
+                {/* Quote Bubble */}
+                <div className="founder-quote-bubble">
+                  <div className="quote-content">
+                    <span className="quote-mark"></span>
+                    <p className="quote-text">Every child deserves the chance to paint their future</p>
+                    <span className="quote-mark closing"></span>
+                  </div>
+                  <div className="quote-tail"></div>
+                </div>
               </div>
-              <p className="founder-description">
-                In 2018, founder Olivia Eze participated in The Bridge Program, an entrepreneurial leadership training.
-                Driven by many volunteer experiences and the awareness that Nigerian children were out of school due to financial constraints,
-                she founded The Redraw Initiative. What began as a one-off project has evolved into a full-fledged organization,
-                empowering children in Nigerian slums with art workshops and auctioning their work to cover tuition fees.
-              </p>
+
+              {/* Story Content with Timeline */}
+              <div className="founder-story-section">
+                <div className="story-header">
+                  <div className="header-decoration">
+                    <Zap className="story-icon-enhanced" />
+                    <div className="icon-pulse"></div>
+                  </div>
+                  <div className="story-title-container">
+                    <h3 className="story-main-title">Meet Olivia Eze</h3>
+                    <p className="story-subtitle">Founder & Visionary</p>
+                  </div>
+                </div>
+
+                {/* Timeline Story */}
+                <div className="story-timeline">
+                  <div className="timeline-item">
+                    <div className="timeline-dot dot-2018"></div>
+                    <div className="timeline-content">
+                      <span className="timeline-year">2018</span>
+                      <p className="timeline-text">
+                        Olivia participated in The Bridge Program, an entrepreneurial leadership training that ignited her passion for social change.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="timeline-item">
+                    <div className="timeline-dot dot-inspiration"></div>
+                    <div className="timeline-content">
+                      <span className="timeline-year">The Spark</span>
+                      <p className="timeline-text">
+                        Through volunteer work, she witnessed firsthand how Nigerian children were denied education due to financial barriers.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="timeline-item">
+                    <div className="timeline-dot dot-birth"></div>
+                    <div className="timeline-content">
+                      <span className="timeline-year">Birth of an Idea</span>
+                      <p className="timeline-text">
+                        The Redraw Initiative was born - combining art education with practical solutions to fund children's schooling.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="timeline-item">
+                    <div className="timeline-dot dot-today"></div>
+                    <div className="timeline-content">
+                      <span className="timeline-year">Today</span>
+                      <p className="timeline-text">
+                        What started as a one-off project has blossomed into a full organization, transforming lives through art in Nigerian communities.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Impact Stats */}
+                <div className="founder-impact-stats">
+                  <div className="stat-item">
+                    <span className="stat-number">200+</span>
+                    <span className="stat-label">Children Empowered</span>
+                  </div>
+                  <div className="stat-divider"></div>
+                  <div className="stat-item">
+                    <span className="stat-number">6</span>
+                    <span className="stat-label">Years of Impact</span>
+                  </div>
+                  <div className="stat-divider"></div>
+                  <div className="stat-item">
+                    <span className="stat-number">∞</span>
+                    <span className="stat-label">Dreams Unlocked</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
