@@ -106,31 +106,31 @@ export default function Transparency() {
   ];
 
   return (
-    <section className="section-container">
-      <div className="container">
-        <div className="section-header">
-          <h2 className="section-title">Transparency & Governance</h2>
-          <div className="section-gradient-line"></div>
-          <p className="section-subtitle">
+    <section className="section-container9">
+      <div className="container9">
+        <div className="section-header9">
+          <h2 className="section-title9">Transparency & Governance</h2>
+          <div className="section-gradient-line9"></div>
+          <p className="section-subtitle9">
             We believe in complete transparency and accountability in all our operations, ensuring every contribution makes the maximum impact for the children we serve.
           </p>
         </div>
 
         {/* Transparency Pillars */}
-        <div className="grid-3 stagger-children">
+        <div className="grid-39 stagger-children9">
           {transparencyPillars.map((pillar, index) => (
-            <div key={index} className="card-base card-hover interactive-glow">
-              <div className="card-icon mb-6">
+            <div key={index} className="card-base9 card-hover9 interactive-glow9">
+              <div className="card-icon9">
                 {pillar.icon}
               </div>
-              <h3 className="card-title">{pillar.title}</h3>
-              <p className="card-description mb-6">{pillar.description}</p>
+              <h3 className="card-title9">{pillar.title}</h3>
+              <p className="card-description9 mb-6-9">{pillar.description}</p>
               
-              <div className="feature-list">
+              <div className="feature-list9">
                 {pillar.features.map((feature, featureIndex) => (
-                  <div key={featureIndex} className="feature-item">
-                    <div className="feature-dot"></div>
-                    <span className="feature-text">{feature}</span>
+                  <div key={featureIndex} className="feature-item9">
+                    <div className="feature-dot9"></div>
+                    <span className="feature-text9">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -139,42 +139,38 @@ export default function Transparency() {
         </div>
 
         {/* Reports & Documentation */}
-        <div className="mt-16">
-          <div className="text-center mb-12">
-            <h3 className="text-2xl font-bold text-white mb-4">Reports & Documentation</h3>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+        <div className="mt-16-9">
+          <div className="text-center9 mb-12-9">
+            <h3 className="text-2xl9 mb-4-9">Reports & Documentation</h3>
+            <p className="text-lg9 max-w-2xl9">
               Access our comprehensive reports and documentation for complete transparency
             </p>
           </div>
 
-          <div className="grid-2 stagger-children">
+          <div className="grid-29 stagger-children9">
             {reports.map((report, index) => (
-              <div key={index} className="card-base card-hover">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary-gradient rounded-lg flex items-center justify-center text-white flex-shrink-0">
+              <div key={index} className="card-base9 card-hover9">
+                <div className="report-card9">
+                  <div className="report-icon9">
                     {report.icon}
                   </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h4 className="font-bold text-white">{report.title}</h4>
-                      <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                        report.status === 'Available' 
-                          ? 'bg-green-500/20 text-green-400' 
-                          : 'bg-orange-500/20 text-orange-400'
-                      }`}>
+                  <div className="report-content9">
+                    <div className="report-header9">
+                      <h4 className="report-title9">{report.title}</h4>
+                      <span className={report.status === 'Available' ? 'status-badge9 status-available9' : 'status-badge9 status-pending9'}>
                         {report.status}
                       </span>
                     </div>
-                    <p className="text-orange-400 text-sm font-medium mb-2">{report.type}</p>
-                    <p className="text-gray-400 text-sm mb-4">{report.description}</p>
+                    <p className="report-type9">{report.type}</p>
+                    <p className="report-description9 mb-4-9">{report.description}</p>
                     
                     {report.status === 'Available' ? (
-                      <button className="flex items-center gap-2 bg-glass-bg border border-glass-border text-white px-4 py-2 rounded-lg font-semibold transition-all duration-300 hover:bg-orange-500 hover:border-orange-500">
+                      <button className="btn-download9">
                         <span>Download</span>
                         <ExternalLink className="w-4 h-4" />
                       </button>
                     ) : (
-                      <button className="bg-gray-600 text-gray-400 px-4 py-2 rounded-lg font-semibold cursor-not-allowed">
+                      <button className="btn-disabled9">
                         Coming Soon
                       </button>
                     )}
@@ -186,52 +182,52 @@ export default function Transparency() {
         </div>
 
         {/* Partnerships Section */}
-        <div className="mt-16">
-          <div className="text-center mb-12">
-            <h3 className="text-2xl font-bold text-white mb-4">Our Partnerships</h3>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+        <div className="mt-16-9">
+          <div className="text-center9 mb-12-9">
+            <h3 className="text-2xl9 mb-4-9">Our Partnerships</h3>
+            <p className="text-lg9 max-w-2xl9">
               Working with trusted partners to maximize our impact and ensure accountability
             </p>
           </div>
 
-          <div className="grid-2 stagger-children">
+          <div className="grid-29 stagger-children9">
             {partnerships.map((partnership, index) => (
-              <div key={index} className="card-base">
-                <div className="flex items-center justify-between mb-4">
+              <div key={index} className="card-base9">
+                <div className="partnership-header9">
                   <div>
-                    <h4 className="font-bold text-white flex items-center gap-2">
+                    <h4 className="partnership-title9">
                       {partnership.name}
                       {partnership.verified && (
-                        <CheckCircle className="w-5 h-5 text-green-400" />
+                        <CheckCircle className="verified-icon9" />
                       )}
                     </h4>
-                    <p className="text-orange-400 text-sm font-medium">{partnership.type}</p>
+                    <p className="partnership-type9">{partnership.type}</p>
                   </div>
                 </div>
-                <p className="text-gray-400 text-sm">{partnership.role}</p>
+                <p className="partnership-role9">{partnership.role}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Commitments Section */}
-        <div className="mt-16">
-          <div className="card-base max-w-4xl mx-auto fade-in-up" style={{animationDelay: '0.8s'}}>
-            <div className="text-center mb-8">
-              <div className="card-icon mx-auto mb-4">
+        <div className="mt-16-9">
+          <div className="card-base9 max-w-4xl9 fade-in-up9" style={{animationDelay: '0.4s'}}>
+            <div className="text-center9 mb-8-9">
+              <div className="card-icon9 mx-auto">
                 <Eye className="w-6 h-6" />
               </div>
-              <h3 className="card-title">Our Transparency Commitments</h3>
-              <p className="card-description">
+              <h3 className="card-title9">Our Transparency Commitments</h3>
+              <p className="card-description9">
                 These are the standards we hold ourselves to in every aspect of our work
               </p>
             </div>
 
-            <div className="grid-2 gap-4">
+            <div className="grid-29 gap-4-9">
               {commitments.map((commitment, index) => (
-                <div key={index} className="feature-item">
-                  <div className="feature-dot"></div>
-                  <span className="feature-text">{commitment}</span>
+                <div key={index} className="feature-item9">
+                  <div className="feature-dot9"></div>
+                  <span className="feature-text9">{commitment}</span>
                 </div>
               ))}
             </div>
@@ -239,17 +235,17 @@ export default function Transparency() {
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-12">
-          <div className="max-w-2xl mx-auto">
-            <h3 className="text-xl font-bold text-white mb-4">Questions About Our Operations?</h3>
-            <p className="text-gray-400 mb-6">
+        <div className="text-center9 mt-16-9">
+          <div className="max-w-2xl9">
+            <h3 className="text-xl9 mb-4-9">Questions About Our Operations?</h3>
+            <p className="text-lg9 mb-6-9">
               We're always happy to provide additional information or clarification about our work and impact.
             </p>
-            <div className="grid-2 gap-4">
-              <button className="bg-primary-gradient text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105">
+            <div className="grid-29 gap-4-9">
+              <button className="btn-primary9">
                 Contact Us
               </button>
-              <button className="bg-glass-bg border border-glass-border text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-white hover:text-gray-900">
+              <button className="btn-secondary9">
                 Request Information
               </button>
             </div>

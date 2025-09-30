@@ -45,6 +45,7 @@ export default function Navbar() {
     { name: 'Programs', href: '#programs' },
     { name: 'Stories', href: '#stories' },
     { name: 'Events', href: '#events' },
+    { name: 'Volunteer', href: '#volunteercta' },
     { name: 'Contact', href: '#contact' }
   ];
 

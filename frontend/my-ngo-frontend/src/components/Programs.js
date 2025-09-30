@@ -47,63 +47,63 @@ export default function Programs() {
   ];
 
   return (
-    <section id="programs" className="section-container">
+    <section id="programs" className="programs-section-container">
       <div className="container">
-        <div className="section-header">
-          <h2 className="section-title">Our Programs</h2>
-          <div className="section-gradient-line"></div>
-          <p className="section-subtitle">
+        <div className="programs-section-header">
+          <h2 className="programs-section-title">Our Programs</h2>
+          <div className="programs-section-gradient-line"></div>
+          <p className="programs-section-subtitle">
             We offer comprehensive programs designed to nurture creativity, provide educational opportunities, and transform lives through the power of art.
           </p>
         </div>
 
-        <div className="grid-3 stagger-children">
+        <div className="programs-grid-3 programs-stagger-children">
           {programs.map((program, index) => (
-            <div key={index} className="card-base card-hover card-program interactive-glow">
+            <div key={index} className="programs-card-base programs-card-hover">
               {/* Program Image with Enhanced Overlay */}
-              <div className="relative overflow-hidden rounded-2xl mb-6">
+              <div className="programs-image-container">
                 <Image 
                   src={program.image} 
                   alt={`${program.title} illustration`}
                   width={400}
                   height={200}
-                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="programs-image"
                 />
                 
-                {/* Enhanced glass overlay with gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
+                {/* Enhanced overlay with gradient */}
+                <div className="programs-image-overlay"></div>
                 
                 {/* Floating stats badge */}
-                <div className="absolute top-4 left-4 bg-glass-bg backdrop-blur-md border border-glass-border rounded-lg px-3 py-2">
-                  <div className="text-white font-bold text-lg leading-none">{program.stats.number}</div>
-                  <div className="text-orange-400 text-xs font-medium">{program.stats.label}</div>
+                <div className="programs-stats-badge">
+                  <div className="programs-stats-number">{program.stats.number}</div>
+                  <div className="programs-stats-label">{program.stats.label}</div>
                 </div>
                 
                 {/* Floating icon */}
-                <div className="card-icon absolute top-4 right-4 w-12 h-12">
+                <div className="programs-icon-badge">
                   {program.icon}
                 </div>
               </div>
 
               {/* Program Content */}
-              <div className="space-y-4">
-                <h3 className="card-title">{program.title}</h3>
-                <p className="card-description">{program.description}</p>
+              <div className="programs-card-content">
+                <h3 className="programs-card-title">{program.title}</h3>
+                <p className="programs-card-description">{program.description}</p>
                 
                 {/* Program Features */}
-                <div className="feature-list">
+                <div className="programs-feature-list">
                   {program.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="feature-item">
-                      <div className="feature-dot"></div>
-                      <span className="feature-text text-sm">{feature}</span>
+                    <div key={featureIndex} className="programs-feature-item">
+                      <div className="programs-feature-dot"></div>
+                      <span className="programs-feature-text">{feature}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Action Button */}
-              <div className="mt-6 pt-4 border-t border-glass-border">
-                <button className="w-full bg-primary-gradient text-white px-4 py-2 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105">
+              <div className="programs-card-footer">
+                <button className="programs-learn-more-btn">
                   Learn More
                 </button>
               </div>
@@ -112,38 +112,38 @@ export default function Programs() {
         </div>
 
         {/* Programs Stats Section */}
-        <div className="stats-grid mt-16 fade-in-up" style={{animationDelay: '0.8s'}}>
-          <div className="stats-card">
-            <div className="stats-number">5</div>
-            <div className="stats-label">Active Programs</div>
+        <div className="programs-stats-grid programs-fade-in-up" style={{animationDelay: '0.8s'}}>
+          <div className="programs-stats-card">
+            <div className="programs-stats-number">5</div>
+            <div className="programs-stats-card-label">Active Programs</div>
           </div>
-          <div className="stats-card">
-            <div className="stats-number">500+</div>
-            <div className="stats-label">Children Impacted</div>
+          <div className="programs-stats-card">
+            <div className="programs-stats-number">500+</div>
+            <div className="programs-stats-card-label">Children Impacted</div>
           </div>
-          <div className="stats-card">
-            <div className="stats-number">3</div>
-            <div className="stats-label">Years of Service</div>
+          <div className="programs-stats-card">
+            <div className="programs-stats-number">3</div>
+            <div className="programs-stats-card-label">Years of Service</div>
           </div>
         </div>
 
         {/* Call to Action Section */}
-        <div className="text-center mt-16">
-          <div className="card-base max-w-2xl mx-auto fade-in-up" style={{animationDelay: '1s'}}>
-            <div className="card-icon mx-auto mb-6">
+        <div className="programs-cta-wrapper">
+          <div className="programs-cta-card programs-fade-in-up" style={{animationDelay: '1s'}}>
+            <div className="programs-cta-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
               </svg>
             </div>
-            <h3 className="card-title mb-4">Expanding Our Impact</h3>
-            <p className="card-description mb-6">
+            <h3 className="programs-cta-title">Expanding Our Impact</h3>
+            <p className="programs-cta-description">
               We are constantly evolving and adding new programs to better serve our community. More innovative programs may be added in the coming months as we continue to grow and respond to the needs of the children we serve.
             </p>
-            <div className="grid-2 gap-4">
-              <button className="bg-primary-gradient text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105">
+            <div className="programs-cta-buttons">
+              <button className="programs-cta-btn-primary">
                 Get Involved
               </button>
-              <button className="bg-glass-bg border border-glass-border text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-white hover:text-gray-900">
+              <button className="programs-cta-btn-secondary">
                 View Success Stories
               </button>
             </div>

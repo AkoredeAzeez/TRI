@@ -1,18 +1,8 @@
-/* globals.css - Updated with Cherish Branding & Multi-Cutout Hero Support */
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+/* globals.css - Updated with New Color Scheme & Enhanced Structure */
 
-/* Cherish Font Import */
-@font-face {
-  font-family: 'Cherish';
-  src: url('/fonts/Cherish.ttf') format('truetype'),
-       url('/fonts/Cherish.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
+/* ===== CSS RESET ===== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -23,37 +13,32 @@ html, body {
   height: 100%;
 }
 
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(135deg, #FFEFCD 0%, #A58E74 50%, #E09132 100%);
-  color: #424530;
-  overflow-x: hidden;
-  min-height: 100vh;
+html {
+  scroll-behavior: smooth;
 }
 
-/* Design System Tokens - Cherish Brand Colors */
+/* ===== DESIGN SYSTEM TOKENS ===== */
 :root {
-  /* Cherish Color Palette */
-  --warm-ivory: #FFEFCD;
-  --natural: #A58E74;
-  --apricot: #E09132;
-  --fern: #424530;
+  /* New Color Palette */
+  --emerald-pine: #1B5E20;
+  --white: #F8F9FA;
+  --limeglow: #8BC34A;
   
   /* Brand Gradients */
-  --primary-gradient: linear-gradient(135deg, #E09132, #A58E74);
-  --secondary-gradient: linear-gradient(135deg, #A58E74, #FFEFCD);
-  --accent-gradient: linear-gradient(135deg, #424530, #A58E74);
-  --warm-gradient: linear-gradient(135deg, #FFEFCD, #E09132);
+  --primary-gradient: linear-gradient(135deg, #1B5E20, #8BC34A);
+  --secondary-gradient: linear-gradient(135deg, #8BC34A, #F8F9FA);
+  --accent-gradient: linear-gradient(135deg, #F8F9FA, #1B5E20);
+  --warm-gradient: linear-gradient(135deg, #8BC34A, #1B5E20);
   
-  /* Glass Effects with Brand Colors */
-  --glass-bg: rgba(255, 239, 205, 0.15);
-  --glass-border: rgba(165, 142, 116, 0.3);
-  --glass-shadow: 0 8px 32px 0 rgba(66, 69, 48, 0.2);
+  /* Glass Effects */
+  --glass-bg: rgba(248, 249, 250, 0.15);
+  --glass-border: rgba(139, 195, 74, 0.3);
+  --glass-shadow: 0 8px 32px 0 rgba(27, 94, 32, 0.2);
   
-  /* Cutout & Hero Effects */
+  /* Effects & Shadows */
   --cutout-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  --cutout-hover-shadow: 0 15px 40px rgba(224, 145, 50, 0.4);
-  --hero-overlay: rgba(66, 69, 48, 0.3);
+  --cutout-hover-shadow: 0 15px 40px rgba(139, 195, 74, 0.4);
+  --hero-overlay: rgba(27, 94, 32, 0.3);
   
   /* Animation Timings */
   --transition-fast: 0.2s ease-out;
@@ -61,23 +46,18 @@ body {
   --transition-slow: 0.5s ease-out;
 }
 
-/* Base Styles */
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
+/* ===== BASE STYLES ===== */
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(135deg, #FFEFCD 0%, #A58E74 50%, #E09132 100%);
-  color: var(--fern);
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #F8F9FA;
+  color: var(--emerald-pine);
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
-/* Utility Classes */
+/* ===== UTILITY CLASSES ===== */
+
+/* Glass Effects */
 .glass-card {
   background: var(--glass-bg);
   backdrop-filter: blur(20px);
@@ -89,11 +69,12 @@ body {
 }
 
 .glass-card:hover {
-  background: rgba(255, 239, 205, 0.25);
+  background: rgba(248, 249, 250, 0.25);
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px 0 rgba(66, 69, 48, 0.3);
+  box-shadow: 0 20px 40px 0 rgba(27, 94, 32, 0.3);
 }
 
+/* Gradient Classes */
 .gradient-primary {
   background: var(--primary-gradient);
 }
@@ -117,7 +98,7 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* Floating Particles Background */
+/* ===== FLOATING PARTICLES BACKGROUND ===== */
 .particles-container {
   position: fixed;
   top: 0;
@@ -131,13 +112,13 @@ body {
 
 .particle {
   position: absolute;
-  background: radial-gradient(circle, rgba(224, 145, 50, 0.3) 0%, rgba(165, 142, 116, 0.1) 100%);
+  background: radial-gradient(circle, rgba(139, 195, 74, 0.3) 0%, rgba(27, 94, 32, 0.1) 100%);
   border-radius: 50%;
   opacity: 0.6;
   animation: float 20s infinite ease-in-out;
 }
 
-/* Buttons */
+/* ===== BUTTONS ===== */
 .btn-futuristic {
   background: var(--primary-gradient);
   border: none;
@@ -145,10 +126,10 @@ body {
   padding: 16px 32px;
   font-weight: 600;
   font-size: 1.1rem;
-  color: var(--warm-ivory);
+  color: var(--white);
   cursor: pointer;
   transition: all var(--transition-normal);
-  box-shadow: 0 8px 25px rgba(224, 145, 50, 0.3);
+  box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
   position: relative;
   overflow: hidden;
 }
@@ -160,7 +141,7 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 239, 205, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(248, 249, 250, 0.3), transparent);
   transition: all var(--transition-slow);
 }
 
@@ -170,7 +151,7 @@ body {
 
 .btn-futuristic:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 15px 35px rgba(224, 145, 50, 0.5);
+  box-shadow: 0 15px 35px rgba(139, 195, 74, 0.5);
 }
 
 .btn-ghost {
@@ -181,35 +162,35 @@ body {
   padding: 16px 32px;
   font-weight: 600;
   font-size: 1.1rem;
-  color: var(--fern);
+  color: var(--emerald-pine);
   cursor: pointer;
   transition: all var(--transition-normal);
 }
 
 .btn-ghost:hover {
-  background: rgba(255, 239, 205, 0.3);
+  background: rgba(248, 249, 250, 0.3);
   transform: translateY(-3px) scale(1.05);
-  border-color: var(--natural);
+  border-color: var(--limeglow);
 }
 
-/* Section Backgrounds */
+/* ===== SECTION BACKGROUNDS ===== */
 .section-bg-1 {
-  background: linear-gradient(135deg, #FFEFCD 0%, #A58E74 50%, #E09132 100%);
+  background: #F8F9FA;
 }
 
 .section-bg-2 {
-  background: linear-gradient(135deg, #E09132 0%, #A58E74 50%, #424530 100%);
+  background: #F8F9FA;
 }
 
 .section-bg-3 {
-  background: linear-gradient(135deg, #A58E74 0%, #424530 50%, #FFEFCD 100%);
+  background: #F8F9FA;
 }
 
-/* Typography */
+/* ===== TYPOGRAPHY ===== */
 .heading-futuristic, .cherish-heading {
-  font-family: 'Cherish', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(2rem, 8vw, 4rem);
-  font-weight: normal;
+  font-weight: 600;
   line-height: 1.1;
   margin-bottom: 1.5rem;
   background: var(--primary-gradient);
@@ -220,10 +201,10 @@ body {
 }
 
 .subheading-futuristic {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: clamp(1.2rem, 4vw, 1.8rem);
-  font-weight: 300;
-  color: var(--fern);
+  font-weight: 400;
+  color: var(--emerald-pine);
   opacity: 0.9;
   line-height: 1.6;
   text-align: center;
@@ -231,97 +212,29 @@ body {
 }
 
 /* Brand Typography Classes */
-.cherish-script {
-  font-family: 'Cherish', serif;
-  font-weight: normal;
+.poppins-font {
+  font-family: 'Poppins', sans-serif;
 }
 
-.text-warm-ivory {
-  color: var(--warm-ivory);
+.opensans-font {
+  font-family: 'Open Sans', sans-serif;
 }
 
-.text-natural {
-  color: var(--natural);
+.text-emerald-pine {
+  color: var(--emerald-pine);
 }
 
-.text-apricot {
-  color: var(--apricot);
+.text-white {
+  color: var(--white);
 }
 
-.text-fern {
-  color: var(--fern);
+.text-limeglow {
+  color: var(--limeglow);
 }
 
-/* ===== HERO & CUTOUT SPECIFIC STYLES ===== */
 
-/* Background Image Utilities - Updated with Multi-Cutout Support */
-.hero-bg-image {
-  background-image: url('/img/hero-background.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
 
-/* Multi-cutout hero utilities */
-.hero-bg-overlay {
-  position: absolute;
-  inset: 0;
-  background: var(--hero-overlay);
-  z-index: 2;
-}
-
-.hero-cutout-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-}
-
-/* Ensure content stays above all layers */
-.hero-content-elevated {
-  position: relative;
-  z-index: 10;
-}
-
-/* Cutout shape base styles for global use */
-.floating-cutout {
-  position: absolute;
-  background-size: cover;
-  background-position: center;
-  border-radius: 50% 30% 70% 40%;
-  animation: floatGently 8s ease-in-out infinite;
-  box-shadow: var(--cutout-shadow);
-  transition: all var(--transition-normal);
-}
-
-.floating-cutout:hover {
-  transform: scale(1.05);
-  box-shadow: var(--cutout-hover-shadow);
-}
-
-/* Multi-cutout animation variants */
-.cutout-float-1 { animation-delay: 0s; }
-.cutout-float-2 { animation-delay: -1s; }
-.cutout-float-3 { animation-delay: -2s; }
-.cutout-float-4 { animation-delay: -3s; }
-.cutout-float-5 { animation-delay: -4s; }
-.cutout-float-6 { animation-delay: -5s; }
-
-/* Organic shape variations */
-.cutout-organic-1 { border-radius: 60% 40% 30% 70%; }
-.cutout-organic-2 { border-radius: 30% 70% 60% 40%; }
-.cutout-organic-3 { border-radius: 70% 30% 40% 60%; }
-.cutout-organic-4 { border-radius: 40% 60% 70% 30%; }
-.cutout-organic-5 { border-radius: 50% 50% 30% 70%; }
-.cutout-organic-6 { border-radius: 70% 30% 50% 50%; }
-
-/* Size variations for cutouts */
-.cutout-small { width: 120px; height: 150px; }
-.cutout-medium { width: 160px; height: 200px; }
-.cutout-large { width: 200px; height: 240px; }
-
-/* Animations */
+/* ===== ANIMATIONS ===== */
 @keyframes float {
   0%, 100% { 
     transform: translateY(0px) translateX(0px); 
@@ -358,10 +271,10 @@ body {
 
 @keyframes glow {
   0%, 100% { 
-    box-shadow: 0 0 20px rgba(224, 145, 50, 0.5);
+    box-shadow: 0 0 20px rgba(139, 195, 74, 0.5);
   }
   50% { 
-    box-shadow: 0 0 40px rgba(165, 142, 116, 0.7);
+    box-shadow: 0 0 40px rgba(27, 94, 32, 0.7);
   }
 }
 
@@ -409,7 +322,12 @@ body {
   }
 }
 
-/* Utility Animation Classes */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ===== UTILITY ANIMATION CLASSES ===== */
 .animate-slide-up {
   animation: slideUp 0.8s ease-out forwards;
 }
@@ -434,97 +352,111 @@ body {
   animation: floatGently 8s ease-in-out infinite;
 }
 
-/* Brand-specific component styles */
+/* ===== BRAND COMPONENT STYLES ===== */
 .cherish-card {
-  background: rgba(255, 239, 205, 0.9);
-  border: 2px solid var(--natural);
+  background: rgba(248, 249, 250, 0.9);
+  border: 2px solid var(--limeglow);
   border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 8px 25px rgba(66, 69, 48, 0.1);
+  box-shadow: 0 8px 25px rgba(27, 94, 32, 0.1);
   transition: all var(--transition-normal);
 }
 
 .cherish-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(66, 69, 48, 0.2);
-  border-color: var(--apricot);
+  box-shadow: 0 15px 35px rgba(27, 94, 32, 0.2);
+  border-color: var(--emerald-pine);
 }
 
+/* Theme Classes */
 .cherish-accent {
-  background: var(--apricot);
-  color: var(--warm-ivory);
+  background: var(--limeglow);
+  color: var(--white);
 }
 
-.cherish-natural {
-  background: var(--natural);
-  color: var(--warm-ivory);
+.cherish-primary {
+  background: var(--emerald-pine);
+  color: var(--white);
 }
 
-.cherish-warm {
-  background: var(--warm-ivory);
-  color: var(--fern);
+.cherish-light {
+  background: var(--white);
+  color: var(--emerald-pine);
 }
 
-.cherish-fern {
-  background: var(--fern);
-  color: var(--warm-ivory);
-}
-
-/* ===== SHARP EDGES UTILITY CLASSES (ADDED FOR ABOUT REDESIGN) ===== */
-
-/* Sharp edge variants for existing components */
+/* ===== SHARP EDGES UTILITY CLASSES ===== */
 .sharp-edges {
   border-radius: 0 !important;
 }
 
 .sharp-card {
-  background: var(--warm-ivory);
-  border: 3px solid var(--natural);
-  /* No border-radius for sharp edges */
+  background: var(--white);
+  border: 3px solid var(--limeglow);
   padding: 2rem;
-  box-shadow: 0 8px 25px rgba(165, 142, 116, 0.1);
+  box-shadow: 0 8px 25px rgba(139, 195, 74, 0.1);
   transition: all var(--transition-normal);
 }
 
 .sharp-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(165, 142, 116, 0.2);
-  border-color: var(--apricot);
+  box-shadow: 0 15px 35px rgba(139, 195, 74, 0.2);
+  border-color: var(--emerald-pine);
 }
 
-/* Button variants with sharp edges */
 .btn-sharp-primary {
-  background: var(--apricot);
-  border: 3px solid var(--fern);
-  /* No border-radius for sharp edges */
+  background: var(--limeglow);
+  border: 3px solid var(--emerald-pine);
   padding: 16px 32px;
   font-weight: 700;
   font-size: 1.1rem;
-  color: var(--warm-ivory);
+  color: var(--white);
   cursor: pointer;
   transition: all var(--transition-normal);
-  box-shadow: 0 8px 25px rgba(224, 145, 50, 0.3);
+  box-shadow: 0 8px 25px rgba(139, 195, 74, 0.3);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .btn-sharp-primary:hover {
-  background: var(--fern);
-  color: var(--warm-ivory);
+  background: var(--emerald-pine);
+  color: var(--white);
   transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(66, 69, 48, 0.4);
+  box-shadow: 0 15px 35px rgba(27, 94, 32, 0.4);
 }
 
-/* Icon containers with sharp edges */
 .icon-sharp {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* No border-radius for sharp edges */
   transition: all var(--transition-normal);
 }
 
-/* Responsive Design */
+/* ===== LOADING STATES ===== */
+.loading-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(139, 195, 74, 0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(248, 249, 250, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-gradient);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gradient);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .glass-card {
     padding: 1.5rem;
@@ -549,7 +481,6 @@ body {
     font-size: 1rem;
   }
   
-  /* Responsive cutouts */
   .floating-cutout {
     width: 100px !important;
     height: 120px !important;
@@ -561,54 +492,22 @@ body {
 }
 
 @media (max-width: 480px) {
-  /* Hide cutouts on very small screens */
   .floating-cutout {
     display: none;
   }
   
   .hero-bg-overlay {
-    background: rgba(66, 69, 48, 0.5); /* Darker overlay when cutouts hidden */
+    background: rgba(27, 94, 32, 0.5);
   }
 }
 
-/* High resolution displays */
 @media (min-width: 1920px) {
   .cutout-small { width: 140px; height: 180px; }
   .cutout-medium { width: 180px; height: 220px; }
   .cutout-large { width: 220px; height: 260px; }
 }
 
-/* Custom scrollbar with brand colors */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 239, 205, 0.3);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--primary-gradient);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-gradient);
-}
-
-/* Loading states */
-.loading-shimmer {
-  background: linear-gradient(90deg, transparent, rgba(224, 145, 50, 0.1), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-/* Accessibility: Reduce motion for users who prefer it */
+/* ===== ACCESSIBILITY ===== */
 @media (prefers-reduced-motion: reduce) {
   .floating-cutout,
   .particle,

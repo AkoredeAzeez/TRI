@@ -12,7 +12,7 @@ export default function About() {
         <div className="about-header">
           <h2 className="about-main-title">
             About{' '}
-            <span className="gradient-text">
+            <span className="gradient-text1">
               The Redraw Initiative
             </span>
           </h2>
@@ -85,7 +85,6 @@ export default function About() {
                     <p className="quote-text">Every child deserves the chance to paint their future</p>
                     <span className="quote-mark closing"></span>
                   </div>
-                  <div className="quote-tail"></div>
                 </div>
               </div>
 

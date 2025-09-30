@@ -49,65 +49,65 @@ export default function Stories() {
 
   const milestones = [
     { year: "2021", event: "Founded with 10 children", highlight: true },
-    { year: "2022", event: "First art exhibition held" },
-    { year: "2023", event: "Launched scholarship program" },
+    { year: "2022", event: "First art exhibition held", highlight: false },
+    { year: "2023", event: "Launched scholarship program", highlight: false },
     { year: "2024", event: "Reached 150+ children impacted", highlight: true }
   ];
 
   return (
-    <section id="stories" className="section-container">
+    <section id="stories" className="stories-section-container">
       <div className="container">
-        <div className="section-header">
-          <h2 className="section-title">Our Impact Stories</h2>
-          <div className="section-gradient-line"></div>
-          <p className="section-subtitle">
+        <div className="stories-section-header">
+          <h2 className="stories-section-title">Our Impact Stories</h2>
+          <div className="stories-section-gradient-line"></div>
+          <p className="stories-section-subtitle">
             Every child we touch through art becomes a story of transformation, hope, and boundless creativity.
           </p>
         </div>
 
         {/* Impact Statistics */}
-        <div className="stats-grid stagger-children">
+        <div className="stories-stats-grid stories-stagger-children">
           {impactStats.map((stat, index) => (
-            <div key={index} className="card-base card-hover interactive-glow">
-              <div className="card-icon mb-4">
+            <div key={index} className="stories-stat-card">
+              <div className="stories-stat-icon">
                 {stat.icon}
               </div>
-              <div className="stats-number">{stat.value}</div>
-              <div className="stats-label mb-2">{stat.label}</div>
-              <p className="text-sm text-gray-400 text-center">{stat.description}</p>
+              <div className="stories-stat-number">{stat.value}</div>
+              <div className="stories-stat-label">{stat.label}</div>
+              <p className="stories-stat-description">{stat.description}</p>
             </div>
           ))}
         </div>
 
         {/* Success Stories */}
-        <div className="mt-16">
-          <div className="text-center mb-12">
-            <h3 className="text-2xl font-bold text-white mb-4">Voices of Transformation</h3>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+        <div className="stories-testimonials-wrapper">
+          <div className="stories-section-subheader">
+            <h3 className="stories-subheader-title">Voices of Transformation</h3>
+            <p className="stories-subheader-text">
               Real stories from the children and families whose lives have been touched by art
             </p>
           </div>
 
-          <div className="grid-3 stagger-children">
+          <div className="stories-testimonials-grid stories-stagger-children">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="card-base card-hover">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-primary-gradient rounded-full flex items-center justify-center text-white">
+              <div key={index} className="stories-testimonial-card">
+                <div className="stories-testimonial-header">
+                  <div className="stories-testimonial-icon">
                     {testimonial.icon}
                   </div>
-                  <div>
-                    <h4 className="font-bold text-white">{testimonial.name}</h4>
-                    <p className="text-sm text-orange-400">{testimonial.age || testimonial.role}</p>
+                  <div className="stories-testimonial-author-info">
+                    <h4 className="stories-testimonial-name">{testimonial.name}</h4>
+                    <p className="stories-testimonial-role">{testimonial.age || testimonial.role}</p>
                   </div>
                 </div>
                 
-                <blockquote className="text-gray-300 italic mb-4 leading-relaxed">
+                <blockquote className="stories-testimonial-quote">
                   "{testimonial.story}"
                 </blockquote>
                 
-                <div className="feature-item mt-4 pt-4 border-t border-glass-border">
-                  <div className="feature-dot"></div>
-                  <span className="feature-text font-semibold text-orange-400">{testimonial.impact}</span>
+                <div className="stories-testimonial-footer">
+                  <div className="stories-impact-dot"></div>
+                  <span className="stories-impact-text">{testimonial.impact}</span>
                 </div>
               </div>
             ))}
@@ -115,73 +115,71 @@ export default function Stories() {
         </div>
 
         {/* Journey Timeline */}
-        <div className="mt-16">
-          <div className="text-center mb-12">
-            <h3 className="text-2xl font-bold text-white mb-4">Our Journey</h3>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+        <div className="stories-timeline-wrapper">
+          <div className="stories-section-subheader">
+            <h3 className="stories-subheader-title">Our Journey</h3>
+            <p className="stories-subheader-text">
               Milestones that mark our growth and impact in the community
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="grid-2 gap-6">
-              {milestones.map((milestone, index) => (
-                <div key={index} className={`card-base ${milestone.highlight ? 'card-hover border-orange-500/30' : ''} flex items-center gap-4`}>
-                  <div className={`w-16 h-16 rounded-full flex items-center justify-center font-bold text-white ${milestone.highlight ? 'bg-primary-gradient' : 'bg-glass-bg border border-glass-border'}`}>
-                    {milestone.year}
-                  </div>
-                  <div>
-                    <p className="text-white font-medium">{milestone.event}</p>
-                    {milestone.highlight && (
-                      <div className="feature-item mt-2">
-                        <div className="feature-dot"></div>
-                        <span className="feature-text text-orange-400 font-semibold">Major Milestone</span>
-                      </div>
-                    )}
-                  </div>
+          <div className="stories-timeline-grid">
+            {milestones.map((milestone, index) => (
+              <div key={index} className={`stories-milestone-card ${milestone.highlight ? 'highlight' : ''}`}>
+                <div className={`stories-milestone-year ${milestone.highlight ? 'highlight' : 'normal'}`}>
+                  {milestone.year}
                 </div>
-              ))}
-            </div>
+                <div className="stories-milestone-content">
+                  <p className="stories-milestone-event">{milestone.event}</p>
+                  {milestone.highlight && (
+                    <div className="stories-milestone-badge">
+                      <div className="stories-milestone-badge-dot"></div>
+                      <span className="stories-milestone-badge-text">Major Milestone</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* Inspirational Quote Section */}
-        <div className="text-center mt-16 fade-in-up" style={{animationDelay: '1s'}}>
-          <div className="card-base max-w-4xl mx-auto">
-            <div className="card-icon mx-auto mb-6">
+        <div className="stories-quote-wrapper">
+          <div className="stories-quote-card stories-fade-in-up" style={{animationDelay: '1s'}}>
+            <div className="stories-quote-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M14 17h3l2-4V7c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v6l2 4h3c.6 0 1-.4 1-1s-.4-1-1-1H9l-2-4V7h8v6l-2 4h-1c-.6 0-1 .4-1 1s.4 1 1 1z"/>
               </svg>
             </div>
             
-            <blockquote className="text-xl md:text-2xl leading-relaxed text-white mb-6 italic">
+            <blockquote className="stories-quote-text">
               "Every brushstroke tells a story of hope, every drawing opens a door to possibility, and every exhibition builds bridges between dreams and reality."
             </blockquote>
             
-            <div className="feature-list max-w-2xl mx-auto">
-              <div className="feature-item justify-center">
-                <div className="feature-dot"></div>
-                <span className="feature-text">Transforming lives through creative expression</span>
+            <div className="stories-quote-features">
+              <div className="stories-quote-feature">
+                <div className="stories-quote-feature-dot"></div>
+                <span className="stories-quote-feature-text">Transforming lives through creative expression</span>
               </div>
-              <div className="feature-item justify-center">
-                <div className="feature-dot"></div>
-                <span className="feature-text">Building confidence one artwork at a time</span>
+              <div className="stories-quote-feature">
+                <div className="stories-quote-feature-dot"></div>
+                <span className="stories-quote-feature-text">Building confidence one artwork at a time</span>
               </div>
-              <div className="feature-item justify-center">
-                <div className="feature-dot"></div>
-                <span className="feature-text">Creating pathways to brighter futures</span>
+              <div className="stories-quote-feature">
+                <div className="stories-quote-feature-dot"></div>
+                <span className="stories-quote-feature-text">Creating pathways to brighter futures</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-12">
-          <div className="grid-2 gap-4 max-w-md mx-auto">
-            <button className="bg-primary-gradient text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105">
+        <div className="stories-cta-wrapper">
+          <div className="stories-cta-buttons">
+            <button className="stories-cta-btn-primary">
               Share Your Story
             </button>
-            <button className="bg-glass-bg border border-glass-border text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-white hover:text-gray-900">
+            <button className="stories-cta-btn-secondary">
               View Gallery
             </button>
           </div>

@@ -7,25 +7,25 @@ export default function DonateCTA() {
       title: "One-time Donation", 
       description: "Make an immediate impact with a single contribution",
       icon: <Heart className="w-6 h-6" />,
-      color: "from-red-500 to-pink-500"
+      iconClass: "donate-icon-primary"
     },
     { 
       title: "Monthly Giving", 
       description: "Provide ongoing support with recurring donations",
       icon: <Calendar className="w-6 h-6" />,
-      color: "from-blue-500 to-purple-500"
+      iconClass: "donate-icon-secondary"
     },
     { 
       title: "Quarterly/Annual Support", 
       description: "Structured giving for larger impact",
       icon: <Gift className="w-6 h-6" />,
-      color: "from-green-500 to-blue-500"
+      iconClass: "donate-icon-primary"
     },
     { 
       title: "In-Kind Donations", 
       description: "Art supplies, materials, and equipment",
       icon: <Wrench className="w-6 h-6" />,
-      color: "from-yellow-500 to-orange-500"
+      iconClass: "donate-icon-gradient"
     },
   ];
 
@@ -38,57 +38,54 @@ export default function DonateCTA() {
   ];
 
   return (
-    <section id="donate" className="section-container section-bg-3">
+    <section id="donate" className="donate-section-container">
       <div className="container">
-        <div className="section-header">
-          <h2 className="section-title">Support Our Mission</h2>
-          <div className="section-gradient-line"></div>
-          <p className="section-subtitle">
+        <div className="donate-section-header">
+          <h2 className="donate-section-title">Support Our Mission</h2>
+          <div className="donate-section-gradient-line"></div>
+          <p className="donate-section-subtitle">
             Your support enables us to continue empowering children through art education and creative expression.
           </p>
         </div>
 
-        <div className="grid-2 mb-16">
-          <div className="fade-in-left">
-            <div className="card-base card-hover mb-6">
-              <h3 className="text-2xl font-bold mb-6 text-white text-center">Donation Options</h3>
-              <div className="space-y-4">
+        <div className="donate-grid-2">
+          <div className="donate-fade-in-left">
+            <div className="donate-card-base donate-card-hover">
+              <h3>Donation Options</h3>
+              <div className="donate-options-list">
                 {options.map((opt, index) => (
                   <div 
                     key={opt.title} 
-                    className="card-base backdrop-blur-sm bg-white/5 border border-white/10 group cursor-pointer hover:bg-white/10 transition-all duration-300"
+                    className="donate-option-item"
                     style={{animationDelay: `${index * 100}ms`}}
                   >
-                    <div className="flex items-start space-x-4">
-                      <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${opt.color} flex items-center justify-center text-white flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
-                        {opt.icon}
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-white mb-2 group-hover:text-orange-300 transition-colors">
-                          {opt.title}
-                        </h4>
-                        <p className="text-white/70">{opt.description}</p>
-                      </div>
+                    <div className={`donate-option-icon ${opt.iconClass}`}>
+                      {opt.icon}
                     </div>
-                    <div className="interactive-glow"></div>
+                    <div className="donate-option-content">
+                      <h4 className="donate-option-title">
+                        {opt.title}
+                      </h4>
+                      <p className="donate-option-description">{opt.description}</p>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          <div className="fade-in-right">
-            <div className="card-base card-hover">
-              <h3 className="text-2xl font-bold mb-6 text-white text-center">How We Use Your Donations</h3>
-              <div className="feature-list">
+          <div className="donate-fade-in-right">
+            <div className="donate-card-base donate-card-hover">
+              <h3>How We Use Your Donations</h3>
+              <div className="donate-feature-list">
                 {usage.map((item, index) => (
                   <div 
                     key={item} 
-                    className="feature-item opacity-0 animate-slide-up"
-                    style={{animationDelay: `${0.2 + index * 0.1}s`, animationFillMode: 'forwards'}}
+                    className="donate-feature-item"
+                    style={{animationDelay: `${0.2 + index * 0.1}s`}}
                   >
-                    <div className="feature-dot"></div>
-                    <p className="feature-text">{item}</p>
+                    <div className="donate-feature-dot"></div>
+                    <p className="donate-feature-text">{item}</p>
                   </div>
                 ))}
               </div>
@@ -96,22 +93,21 @@ export default function DonateCTA() {
           </div>
         </div>
 
-        <div className="text-center fade-in-up" style={{animationDelay: '0.8s'}}>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <button className="btn-futuristic group">
-              <span className="flex items-center">
+        <div className="donate-cta-wrapper donate-fade-in-up" style={{animationDelay: '0.8s'}}>
+          <div className="donate-button-group">
+            <button className="donate-btn-primary">
+              <span style={{ display: 'flex', alignItems: 'center' }}>
                 Donate Now
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
+                <ArrowRight className="w-5 h-5" />
               </span>
             </button>
-            <button className="btn-ghost">
+            <button className="donate-btn-secondary">
               Learn More
             </button>
           </div>
           
-          {/* Additional CTA enhancement */}
-          <div className="mt-8 card-base max-w-md mx-auto">
-            <p className="text-white/80 text-sm">
+          <div className="donate-card-base donate-impact-message">
+            <p>
               Every donation directly impacts a child's future through art education
             </p>
           </div>
