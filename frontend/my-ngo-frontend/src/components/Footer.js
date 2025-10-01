@@ -10,11 +10,11 @@ export default function Footer() {
           <div className="footer-section-21">
             <div className="navbar-logo-21 mb-4">
               <div className="navbar-logo-icon-21">
-                <Image 
-                  src="https://res.cloudinary.com/demo/image/upload/v1632391898/logo_sample.png" 
+                <Image  
+                  src="/img/redraw-logo.png" 
                   alt="The Redraw Initiative Logo" 
-                  width={24} 
-                  height={24} 
+                  width={100} 
+                  height={60} 
                   className="object-contain"
                 />
               </div>

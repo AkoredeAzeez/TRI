@@ -4337,7 +4337,6 @@
 
 /* Animations */
 .stagger-children9 > * {
-  opacity: 0;
   animation: fadeIn9 0.4s ease-out forwards;
 }
 
@@ -4349,7 +4348,6 @@
 .stagger-children9 > *:nth-child(6) { animation-delay: 0.3s; }
 
 .fade-in-up9 {
-  opacity: 0;
   animation: fadeIn9 0.4s ease-out forwards;
 }
 
@@ -4365,7 +4363,7 @@
   }
   
   .container9 {
-    padding: 0 24px;
+    padding:  024px;
   }
   
   .section-header9 {
@@ -4634,7 +4632,6 @@
 }
 
 .fade-in-up8 {
-  opacity: 0;
   animation: fadeIn8 0.4s ease-out forwards;
 }
 
@@ -4649,7 +4646,6 @@
 
 /* Animations */
 .stagger-children8 > * {
-  opacity: 0;
   animation: fadeIn8 0.4s ease-out forwards;
 }
 
@@ -4954,9 +4950,9 @@
 }
 
 .navbar-logo-icon-21 {
-  width: 40px;
-  height: 40px;
-  background: #8BC34A;
+  width: 100px;
+  height: 60px;
+  background: #f8faf6;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -5182,7 +5178,6 @@
 
 /* ===== STAGGER ANIMATION ===== */
 .stagger-children-21 > * {
-  opacity: 0;
   animation: fadeInUp-21 0.6s ease-out forwards;
 }
 
