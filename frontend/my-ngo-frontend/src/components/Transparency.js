@@ -1,7 +1,57 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { FileText, Shield, Users, Eye, Award, TrendingUp, CheckCircle, ExternalLink } from 'lucide-react';
+import { getAllReports } from '../api/reports';
 
 export default function Transparency() {
+  const [reports, setReports] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        setLoading(true);
+        const response = await getAllReports();
+        console.log('✅ Reports fetched successfully:', response);
+        console.log('📊 Number of reports:', response.data?.length || 0);
+        setReports(response.data || []);
+      } catch (err) {
+        console.error('❌ Error fetching reports:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReports();
+  }, []);
+
+  const handleDownload = async (fileUrl, fileName) => {
+    try {
+      console.log('📥 Starting download:', fileName);
+      // Fetch the file
+      const response = await fetch(`http://localhost:1337${fileUrl}`);
+      const blob = await response.blob();
+      
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName || 'report';
+      document.body.appendChild(link);
+      link.click();
+      
+      // Cleanup
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      console.log('✅ Download completed:', fileName);
+    } catch (err) {
+      console.error('❌ Error downloading file:', err);
+      alert('Failed to download file. Please try again.');
+    }
+  };
+
   const transparencyPillars = [
     {
       title: "Financial Accountability",
@@ -38,36 +88,36 @@ export default function Transparency() {
     }
   ];
 
-  const reports = [
-    {
-      title: "2024 Annual Report",
-      status: "Available",
-      type: "Financial",
-      icon: <FileText className="w-5 h-5" />,
-      description: "Complete overview of our 2024 activities and financial performance"
-    },
-    {
-      title: "Q3 2024 Impact Assessment",
-      status: "Available", 
-      type: "Impact",
-      icon: <TrendingUp className="w-5 h-5" />,
-      description: "Detailed analysis of program outcomes and beneficiary progress"
-    },
-    {
-      title: "Independent Audit Report",
-      status: "Coming Soon",
-      type: "Audit",
-      icon: <Shield className="w-5 h-5" />,
-      description: "Third-party financial audit and compliance review"
-    },
-    {
-      title: "Governance Framework",
-      status: "Available",
-      type: "Governance",
-      icon: <Award className="w-5 h-5" />,
-      description: "Our organizational structure and operational guidelines"
+  // Map report types to icons
+  const getReportIcon = (type) => {
+    switch(type) {
+      case 'Annual Report':
+        return <FileText className="w-5 h-5" />;
+      case 'Budget':
+        return <TrendingUp className="w-5 h-5" />;
+      case 'Auditor Report':
+        return <Shield className="w-5 h-5" />;
+      case 'Financial Statement':
+        return <Award className="w-5 h-5" />;
+      case 'Grants/Donors':
+        return <Users className="w-5 h-5" />;
+      default:
+        return <FileText className="w-5 h-5" />;
     }
-  ];
+  };
+
+  // Use only Strapi data, map to display format
+  const reportsToDisplay = reports.map((report) => {
+    const hasFiles = report.attributes?.files?.data && report.attributes.files.data.length > 0;
+    return {
+      title: `${report.attributes?.year || ''} ${report.attributes?.type || 'Report'}`,
+      status: hasFiles ? "Available" : "Coming Soon",
+      type: report.attributes?.type || "Report",
+      icon: getReportIcon(report.attributes?.type),
+      description: report.attributes?.summary || "View detailed report information",
+      files: hasFiles ? report.attributes.files.data : []
+    };
+  });
 
   const partnerships = [
     {
@@ -145,39 +195,66 @@ export default function Transparency() {
             <p className="text-lg9 max-w-2xl9">
               Access our comprehensive reports and documentation for complete transparency
             </p>
+            
+            {loading && (
+              <p className="text-lg9 mt-6-9">Loading reports...</p>
+            )}
           </div>
 
           <div className="grid-29 stagger-children9">
-            {reports.map((report, index) => (
-              <div key={index} className="card-base9 card-hover9">
-                <div className="report-card9">
-                  <div className="report-icon9">
-                    {report.icon}
-                  </div>
-                  <div className="report-content9">
-                    <div className="report-header9">
-                      <h4 className="report-title9">{report.title}</h4>
-                      <span className={report.status === 'Available' ? 'status-badge9 status-available9' : 'status-badge9 status-pending9'}>
-                        {report.status}
-                      </span>
+            {reportsToDisplay.length > 0 ? (
+              reportsToDisplay.map((report, index) => (
+                <div key={index} className="card-base9 card-hover9">
+                  <div className="report-card9">
+                    <div className="report-icon9">
+                      {report.icon}
                     </div>
-                    <p className="report-type9">{report.type}</p>
-                    <p className="report-description9 mb-4-9">{report.description}</p>
-                    
-                    {report.status === 'Available' ? (
-                      <button className="btn-download9">
-                        <span>Download</span>
-                        <ExternalLink className="w-4 h-4" />
-                      </button>
-                    ) : (
-                      <button className="btn-disabled9">
-                        Coming Soon
-                      </button>
-                    )}
+                    <div className="report-content9">
+                      <div className="report-header9">
+                        <h4 className="report-title9">{report.title}</h4>
+                        <span className={report.status === 'Available' ? 'status-badge9 status-available9' : 'status-badge9 status-pending9'}>
+                          {report.status}
+                        </span>
+                      </div>
+                      <p className="report-type9">{report.type}</p>
+                      <p className="report-description9 mb-4-9">{report.description}</p>
+                      
+                      {report.status === 'Available' ? (
+                        <button 
+                          onClick={() => handleDownload(
+                            report.files[0].attributes?.url,
+                            report.files[0].attributes?.name || `${report.title}.pdf`
+                          )}
+                          className="btn-download9"
+                        >
+                          <span>Download</span>
+                          <ExternalLink className="w-4 h-4" />
+                        </button>
+                      ) : (
+                        <button className="btn-disabled9" disabled>
+                          <span>Coming Soon</span>
+                          <ExternalLink className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              !loading && (
+                <div className="text-center9" style={{gridColumn: '1 / -1'}}>
+                  <div className="card-base9 max-w-2xl9" style={{margin: '0 auto'}}>
+                    <div className="card-icon9 mx-auto">
+                      <FileText className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-xl9 mb-2-9">Reports Coming Soon</h3>
+                    <p className="text-lg9">
+                      We are currently preparing our transparency reports. Please check back soon for updates.
+                    </p>
+                  </div>
+                </div>
+              )
+            )}
           </div>
         </div>
 
