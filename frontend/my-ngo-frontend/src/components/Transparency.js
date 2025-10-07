@@ -2,29 +2,39 @@
 import { useState, useEffect } from 'react';
 import { FileText, Shield, Users, Eye, Award, TrendingUp, CheckCircle, ExternalLink } from 'lucide-react';
 import { getAllReports } from '../api/reports';
+import { getAllPartners } from '../api/partners';
 
 export default function Transparency() {
   const [reports, setReports] = useState([]);
+  const [partners, setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchReports = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await getAllReports();
-        console.log('✅ Reports fetched successfully:', response);
-        console.log('📊 Number of reports:', response.data?.length || 0);
-        setReports(response.data || []);
+        
+        // Fetch reports
+        const reportsResponse = await getAllReports();
+        console.log('✅ Reports fetched successfully:', reportsResponse);
+        console.log('📊 Number of reports:', reportsResponse.data?.length || 0);
+        setReports(reportsResponse.data || []);
+        
+        // Fetch partners
+        const partnersResponse = await getAllPartners();
+        console.log('✅ Partners fetched successfully:', partnersResponse);
+        console.log('🤝 Number of partners:', partnersResponse.data?.length || 0);
+        setPartners(partnersResponse.data || []);
       } catch (err) {
-        console.error('❌ Error fetching reports:', err);
+        console.error('❌ Error fetching data:', err);
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchReports();
+    fetchData();
   }, []);
 
   const handleDownload = async (fileUrl, fileName) => {
@@ -119,32 +129,33 @@ export default function Transparency() {
     };
   });
 
-  const partnerships = [
-    {
-      name: "Lagos State Ministry of Education",
-      type: "Government Partner",
-      role: "Educational support and curriculum alignment",
-      verified: true
-    },
-    {
-      name: "Community Development Association",
-      type: "Community Partner", 
-      role: "Local outreach and beneficiary identification",
-      verified: true
-    },
-    {
-      name: "Independent Auditors Ltd",
-      type: "Professional Services",
-      role: "Financial auditing and compliance",
-      verified: true
-    },
-    {
-      name: "Art Supply Distributors",
-      type: "Resource Partner",
-      role: "Materials and equipment provision",
-      verified: false
+  // Map partner types to display info
+  const getPartnerTypeInfo = (type) => {
+    switch(type) {
+      case 'Government':
+        return { label: 'Government Partner', verified: true };
+      case 'NGO':
+        return { label: 'NGO Partner', verified: true };
+      case 'Corporate':
+        return { label: 'Corporate Partner', verified: true };
+      case 'Foundation':
+        return { label: 'Foundation Partner', verified: true };
+      default:
+        return { label: 'Partner', verified: false };
     }
-  ];
+  };
+
+  // Use only Strapi data for partnerships
+  const partnershipsToDisplay = partners.map((partner) => {
+    const typeInfo = getPartnerTypeInfo(partner.attributes?.type);
+    return {
+      name: partner.attributes?.name || 'Partner',
+      type: typeInfo.label,
+      role: partner.attributes?.url || 'Strategic partnership',
+      verified: typeInfo.verified,
+      logo: partner.attributes?.logo?.data?.attributes?.url || null
+    };
+  });
 
   const commitments = [
     "100% transparency in fund allocation",
@@ -268,22 +279,38 @@ export default function Transparency() {
           </div>
 
           <div className="grid-29 stagger-children9">
-            {partnerships.map((partnership, index) => (
-              <div key={index} className="card-base9">
-                <div className="partnership-header9">
-                  <div>
-                    <h4 className="partnership-title9">
-                      {partnership.name}
-                      {partnership.verified && (
-                        <CheckCircle className="verified-icon9" />
-                      )}
-                    </h4>
-                    <p className="partnership-type9">{partnership.type}</p>
+            {partnershipsToDisplay.length > 0 ? (
+              partnershipsToDisplay.map((partnership, index) => (
+                <div key={index} className="card-base9">
+                  <div className="partnership-header9">
+                    <div>
+                      <h4 className="partnership-title9">
+                        {partnership.name}
+                        {partnership.verified && (
+                          <CheckCircle className="verified-icon9" />
+                        )}
+                      </h4>
+                      <p className="partnership-type9">{partnership.type}</p>
+                    </div>
+                  </div>
+                  <p className="partnership-role9">{partnership.role}</p>
+                </div>
+              ))
+            ) : (
+              !loading && (
+                <div className="text-center9" style={{gridColumn: '1 / -1'}}>
+                  <div className="card-base9 max-w-2xl9" style={{margin: '0 auto'}}>
+                    <div className="card-icon9 mx-auto">
+                      <Users className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-xl9 mb-2-9">Partnerships Coming Soon</h3>
+                    <p className="text-lg9">
+                      We are building strategic partnerships to maximize our impact. Check back soon for updates.
+                    </p>
                   </div>
                 </div>
-                <p className="partnership-role9">{partnership.role}</p>
-              </div>
-            ))}
+              )
+            )}
           </div>
         </div>
 
