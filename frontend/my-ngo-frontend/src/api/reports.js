@@ -6,14 +6,14 @@ export function getAllReports() {
   return reports.find()
 }
 
-export function getReportById(id: string) {
+export function getReportById(id) {
   return reports.findOne(id)
 }
 
-export function createReport(data: any) {
+export function createReport(data) {
   return reports.create({ data })
 }
 
-export function updateReport(id: string, data: any) {
+export function updateReport(id, data) {
   return reports.update(id, { data })
 }

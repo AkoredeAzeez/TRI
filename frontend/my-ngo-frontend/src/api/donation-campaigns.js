@@ -6,14 +6,14 @@ export function getAllDonationCampaigns() {
   return donationCampaigns.find()
 }
 
-export function getDonationCampaignById(id: string) {
+export function getDonationCampaignById(id) {
   return donationCampaigns.findOne(id)
 }
 
-export function createDonationCampaign(data: any) {
+export function createDonationCampaign(data) {
   return donationCampaigns.create({ data })
 }
 
-export function updateDonationCampaign(id: string, data: any) {
+export function updateDonationCampaign(id, data) {
   return donationCampaigns.update(id, { data })
 }

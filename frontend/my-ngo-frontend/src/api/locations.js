@@ -6,14 +6,14 @@ export function getAllLocations() {
   return locations.find()
 }
 
-export function getLocationById(id: string) {
+export function getLocationById(id) {
   return locations.findOne(id)
 }
 
-export function createLocation(data: any) {
+export function createLocation(data) {
   return locations.create({ data })
 }
 
-export function updateLocation(id: string, data: any) {
+export function updateLocation(id, data) {
   return locations.update(id, { data })
 }

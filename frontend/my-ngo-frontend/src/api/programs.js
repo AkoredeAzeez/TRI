@@ -6,14 +6,14 @@ export function getAllPrograms() {
   return programs.find()
 }
 
-export function getProgramById(id: string) {
+export function getProgramById(id) {
   return programs.findOne(id)
 }
 
-export function createProgram(data: any) {
+export function createProgram(data) {
   return programs.create({ data })
 }
 
-export function updateProgram(id: string, data: any) {
+export function updateProgram(id, data) {
   return programs.update(id, { data })
 }

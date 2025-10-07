@@ -6,14 +6,14 @@ export function getAllEvents() {
   return events.find()
 }
 
-export function getEventById(id: string) {
+export function getEventById(id) {
   return events.findOne(id)
 }
 
-export function createEvent(data: any) {
+export function createEvent(data) {
   return events.create({ data })
 }
 
-export function updateEvent(id: string, data: any) {
+export function updateEvent(id, data) {
   return events.update(id, { data })
 }

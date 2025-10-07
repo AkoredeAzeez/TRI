@@ -6,14 +6,14 @@ export function getAllBeneficiaries() {
   return beneficiaries.find()
 }
 
-export function getBeneficiaryById(id: string) {
+export function getBeneficiaryById(id) {
   return beneficiaries.findOne(id)
 }
 
-export function createBeneficiary(data: any) {
+export function createBeneficiary(data) {
   return beneficiaries.create({ data })
 }
 
-export function updateBeneficiary(id: string, data: any) {
+export function updateBeneficiary(id, data) {
   return beneficiaries.update(id, { data })
 }

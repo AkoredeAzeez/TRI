@@ -6,14 +6,14 @@ export function getAllPartners() {
   return partners.find()
 }
 
-export function getPartnerById(id: string) {
+export function getPartnerById(id) {
   return partners.findOne(id)
 }
 
-export function createPartner(data: any) {
+export function createPartner(data) {
   return partners.create({ data })
 }
 
-export function updatePartner(id: string, data: any) {
+export function updatePartner(id, data) {
   return partners.update(id, { data })
 }
