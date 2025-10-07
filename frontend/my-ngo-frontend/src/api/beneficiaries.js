@@ -1,19 +1,19 @@
-import client from './strapi'
+import client from "./strapi";
 
-export const beneficiaries = client.collection('beneficiaries')
+export const beneficiaries = client.collection("beneficiaries");
 
 export function getAllBeneficiaries() {
-  return beneficiaries.find()
+  return beneficiaries.find();
 }
 
 export function getBeneficiaryById(id) {
-  return beneficiaries.findOne(id)
+  return beneficiaries.findOne(id);
 }
 
 export function createBeneficiary(data) {
-  return beneficiaries.create({ data })
+  return beneficiaries.create({ data });
 }
 
 export function updateBeneficiary(id, data) {
-  return beneficiaries.update(id, { data })
+  return beneficiaries.update(id, { data });
 }
