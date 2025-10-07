@@ -1,7 +1,30 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { Heart, Star, Award, Palette, Users, BookOpen } from 'lucide-react';
+import { getAllStoryImpacts } from '../api/story-impacts';
 
 export default function Stories() {
+  const [stories, setStories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchStories = async () => {
+      try {
+        setLoading(true);
+        const response = await getAllStoryImpacts();
+        setStories(response.data || []);
+      } catch (err) {
+        console.error('Error fetching stories:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStories();
+  }, []);
+
   const impactStats = [
     { 
       label: "Children Empowered", 
@@ -23,7 +46,8 @@ export default function Stories() {
     }
   ];
 
-  const testimonials = [
+  // Default testimonials as fallback
+  const defaultTestimonials = [
     {
       name: "Amara O.",
       age: "12 years old",
@@ -47,12 +71,52 @@ export default function Stories() {
     }
   ];
 
+  // Use Strapi data if available, otherwise use default testimonials
+  const testimonials = stories.length > 0 
+    ? stories.map((story, index) => ({
+        name: story.attributes?.title || 'Anonymous',
+        age: story.attributes?.date ? new Date(story.attributes.date).getFullYear().toString() : '',
+        story: story.attributes?.excerpt || story.attributes?.body || 'No story available',
+        impact: story.attributes?.program?.data?.attributes?.name || 'Impact Story',
+        icon: index % 3 === 0 ? <Star className="w-5 h-5" /> : 
+              index % 3 === 1 ? <Heart className="w-5 h-5" /> : 
+              <Award className="w-5 h-5" />
+      }))
+    : defaultTestimonials;
+
   const milestones = [
     { year: "2021", event: "Founded with 10 children", highlight: true },
     { year: "2022", event: "First art exhibition held", highlight: false },
     { year: "2023", event: "Launched scholarship program", highlight: false },
     { year: "2024", event: "Reached 150+ children impacted", highlight: true }
   ];
+
+  if (loading) {
+    return (
+      <section id="stories" className="stories-section-container">
+        <div className="container">
+          <div className="stories-section-header">
+            <h2 className="stories-section-title">Loading Stories...</h2>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="stories" className="stories-section-container">
+        <div className="container">
+          <div className="stories-section-header">
+            <h2 className="stories-section-title">Our Impact Stories</h2>
+            <p className="stories-section-subtitle">
+              Unable to load stories at this time. Please try again later.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="stories" className="stories-section-container">
