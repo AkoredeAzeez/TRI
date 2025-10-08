@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { Sparkles } from 'lucide-react';
 
 export default function Hero() {
@@ -20,7 +21,7 @@ export default function Hero() {
           Join us to give underprivileged children the tools to create their future
         </p>
         <div className="hero-buttons">
-          <button className="btn-futuristic">Donate Now</button>
+          <Link href="/donate" className="btn-futuristic">Donate Now</Link>
           <button className="btn-ghost">Volunteer</button>
         </div>
       </div>

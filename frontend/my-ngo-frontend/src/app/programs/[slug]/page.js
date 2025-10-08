@@ -352,9 +352,9 @@ export default function ProgramDetailPage() {
                     Want to support this program or learn more about how you can help?
                   </p>
                   <div className="program-cta-buttons">
-                    <button className="program-cta-button primary">
+                    <Link href="/donate" className="program-cta-button primary">
                       Donate Now
-                    </button>
+                    </Link>
                     <button className="program-cta-button secondary">
                       Volunteer
                     </button>

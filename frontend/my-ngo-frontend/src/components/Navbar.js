@@ -1,5 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import Link from 'next/link';
 import Image from 'next/image';
 
 const throttle = (func, limit) => {
@@ -16,6 +18,8 @@ const throttle = (func, limit) => {
 };
 
 export default function Navbar() {
+  const router = useRouter();
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -39,6 +43,20 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', throttledHandleScroll);
   }, [lastScrollY]);
 
+  // Handle scrolling to hash on page load
+  useEffect(() => {
+    if (pathname === '/' && window.location.hash) {
+      setTimeout(() => {
+        const hash = window.location.hash;
+        const element = document.querySelector(hash);
+        if (element) {
+          const offsetTop = element.offsetTop - 80;
+          window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [pathname]);
+
   const navLinks = [
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
@@ -50,14 +68,22 @@ export default function Navbar() {
   ];
 
   const handleNavClick = (href) => {
+    setIsMobileMenuOpen(false);
+    
     if (href.startsWith('#')) {
-      const element = document.querySelector(href);
-      if (element) {
-        const offsetTop = element.offsetTop - 80;
-        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      // Check if we're on the homepage
+      if (pathname === '/') {
+        // We're on homepage, just scroll to section
+        const element = document.querySelector(href);
+        if (element) {
+          const offsetTop = element.offsetTop - 80;
+          window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }
+      } else {
+        // We're on another page, navigate to homepage with hash
+        router.push('/' + href);
       }
     }
-    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -71,9 +97,8 @@ export default function Navbar() {
           
           {/* Logo */}
           <div className="navbar-logo-section">
-            <a 
-              href="#home" 
-              onClick={() => handleNavClick('#home')}
+            <Link 
+              href="/"
               className="navbar-logo-link"
             >
               <div className="navbar-logo-image">
@@ -87,32 +112,44 @@ export default function Navbar() {
               </div>
               <span className="navbar-brand-name navbar-brand-desktop">THE REDRAW INITIATIVE</span>
               <span className="navbar-brand-name navbar-brand-mobile">TRI</span>
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="navbar-desktop-menu">
             {navLinks.map((link) => (
-              <button
-                key={link.name}
-                onClick={() => handleNavClick(link.href)}
-                className={`navbar-link ${
-                  isScrolled ? 'navbar-link-scrolled' : 'navbar-link-transparent'
-                }`}
-              >
-                {link.name}
-              </button>
+              link.name === 'Home' ? (
+                <Link
+                  key={link.name}
+                  href="/"
+                  className={`navbar-link ${
+                    isScrolled ? 'navbar-link-scrolled' : 'navbar-link-transparent'
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <button
+                  key={link.name}
+                  onClick={() => handleNavClick(link.href)}
+                  className={`navbar-link ${
+                    isScrolled ? 'navbar-link-scrolled' : 'navbar-link-transparent'
+                  }`}
+                >
+                  {link.name}
+                </button>
+              )
             ))}
           </div>
 
           {/* Desktop Donate Button */}
           <div className="navbar-donate-desktop">
-            <button
-              onClick={() => handleNavClick('#donate')}
+            <Link
+              href="/donate"
               className="navbar-donate-btn"
             >
               Donate
-            </button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -152,20 +189,31 @@ export default function Navbar() {
           <div className="navbar-mobile-menu">
             <div className="navbar-mobile-menu-content">
               {navLinks.map((link) => (
-                <button
-                  key={link.name}
-                  onClick={() => handleNavClick(link.href)}
-                  className="navbar-mobile-link"
-                >
-                  {link.name}
-                </button>
+                link.name === 'Home' ? (
+                  <Link
+                    key={link.name}
+                    href="/"
+                    className="navbar-mobile-link"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <button
+                    key={link.name}
+                    onClick={() => handleNavClick(link.href)}
+                    className="navbar-mobile-link"
+                  >
+                    {link.name}
+                  </button>
+                )
               ))}
-              <button
-                onClick={() => handleNavClick('#donate')}
+              <Link
+                href="/donate"
                 className="navbar-mobile-donate"
               >
                 Donate
-              </button>
+              </Link>
             </div>
           </div>
         )}

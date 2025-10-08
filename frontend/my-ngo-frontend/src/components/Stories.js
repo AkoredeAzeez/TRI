@@ -1,34 +1,35 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { Heart, Star, Award, Palette, Users, BookOpen } from 'lucide-react';
-import { getAllStoryImpacts } from '../api/story-impacts';
+import { getAllBeneficiaries } from '../api/beneficiaries';
 
 export default function Stories() {
-  const [stories, setStories] = useState([]);
+  const [beneficiaries, setBeneficiaries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchStories = async () => {
+    const fetchBeneficiaries = async () => {
       try {
         setLoading(true);
-        const response = await getAllStoryImpacts();
-        setStories(response.data || []);
+        const response = await getAllBeneficiaries();
+        console.log('✅ Beneficiaries fetched:', response);
+        setBeneficiaries(response.data || []);
       } catch (err) {
-        console.error('Error fetching stories:', err);
+        console.error('Error fetching beneficiaries:', err);
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchStories();
+    fetchBeneficiaries();
   }, []);
 
   const impactStats = [
     { 
       label: "Children Empowered", 
-      value: "150+", 
+      value: beneficiaries.length > 0 ? `${beneficiaries.length}+` : "150+", 
       icon: <Users className="w-6 h-6" />,
       description: "Young lives transformed through art"
     },
@@ -46,43 +47,25 @@ export default function Stories() {
     }
   ];
 
-  // Default testimonials as fallback
-  const defaultTestimonials = [
-    {
-      name: "Amara O.",
-      age: "12 years old",
-      story: "Before joining The Redraw Initiative, I was too shy to show my drawings to anyone. Now, my artwork hangs in the community center and I've sold three paintings! Art gave me confidence I never knew I had.",
-      impact: "First artwork sold at age 11",
-      icon: <Star className="w-5 h-5" />
-    },
-    {
-      name: "Kemi's Mother",
-      role: "Parent",
-      story: "My daughter struggled in school until she discovered art through this program. Now she uses drawing to help her learn other subjects. Her grades improved and she dreams of becoming an artist.",
-      impact: "Academic improvement through art",
-      icon: <Heart className="w-5 h-5" />
-    },
-    {
-      name: "David C.",
-      age: "14 years old", 
-      story: "I received the annual scholarship and now I'm in secondary school. Art changed my life - from selling my paintings, I help support my family while pursuing my education.",
-      impact: "Scholarship recipient 2023",
-      icon: <Award className="w-5 h-5" />
+  // Build testimonials from beneficiaries and their story impacts
+  const testimonials = [];
+  
+  beneficiaries.forEach((beneficiary, beneficiaryIndex) => {
+    if (beneficiary.story_impacts && beneficiary.story_impacts.length > 0) {
+      beneficiary.story_impacts.forEach((storyImpact, storyIndex) => {
+        const iconIndex = (beneficiaryIndex + storyIndex) % 3;
+        testimonials.push({
+          name: beneficiary.name || beneficiary.initials || 'Anonymous',
+          age: storyImpact.date ? new Date(storyImpact.date).getFullYear().toString() : '',
+          story: storyImpact.excerpt || storyImpact.body?.replace(/<[^>]*>/g, '').substring(0, 200) || 'No story available',
+          impact: storyImpact.program?.name || storyImpact.title || 'Impact Story',
+          icon: iconIndex === 0 ? <Star className="w-5 h-5" /> : 
+                iconIndex === 1 ? <Heart className="w-5 h-5" /> : 
+                <Award className="w-5 h-5" />
+        });
+      });
     }
-  ];
-
-  // Use Strapi data if available, otherwise use default testimonials
-  const testimonials = stories.length > 0 
-    ? stories.map((story, index) => ({
-        name: story.attributes?.title || 'Anonymous',
-        age: story.attributes?.date ? new Date(story.attributes.date).getFullYear().toString() : '',
-        story: story.attributes?.excerpt || story.attributes?.body || 'No story available',
-        impact: story.attributes?.program?.data?.attributes?.name || 'Impact Story',
-        icon: index % 3 === 0 ? <Star className="w-5 h-5" /> : 
-              index % 3 === 1 ? <Heart className="w-5 h-5" /> : 
-              <Award className="w-5 h-5" />
-      }))
-    : defaultTestimonials;
+  });
 
   const milestones = [
     { year: "2021", event: "Founded with 10 children", highlight: true },
@@ -152,30 +135,36 @@ export default function Stories() {
             </p>
           </div>
 
-          <div className="stories-testimonials-grid stories-stagger-children">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="stories-testimonial-card">
-                <div className="stories-testimonial-header">
-                  <div className="stories-testimonial-icon">
-                    {testimonial.icon}
+          {testimonials.length > 0 ? (
+            <div className="stories-testimonials-grid stories-stagger-children">
+              {testimonials.map((testimonial, index) => (
+                <div key={index} className="stories-testimonial-card">
+                  <div className="stories-testimonial-header">
+                    <div className="stories-testimonial-icon">
+                      {testimonial.icon}
+                    </div>
+                    <div className="stories-testimonial-author-info">
+                      <h4 className="stories-testimonial-name">{testimonial.name}</h4>
+                      <p className="stories-testimonial-role">{testimonial.age || testimonial.role}</p>
+                    </div>
                   </div>
-                  <div className="stories-testimonial-author-info">
-                    <h4 className="stories-testimonial-name">{testimonial.name}</h4>
-                    <p className="stories-testimonial-role">{testimonial.age || testimonial.role}</p>
+                  
+                  <blockquote className="stories-testimonial-quote">
+                    &ldquo;{testimonial.story}&rdquo;
+                  </blockquote>
+                  
+                  <div className="stories-testimonial-footer">
+                    <div className="stories-impact-dot"></div>
+                    <span className="stories-impact-text">{testimonial.impact}</span>
                   </div>
                 </div>
-                
-                <blockquote className="stories-testimonial-quote">
-                  "{testimonial.story}"
-                </blockquote>
-                
-                <div className="stories-testimonial-footer">
-                  <div className="stories-impact-dot"></div>
-                  <span className="stories-impact-text">{testimonial.impact}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center" style={{ padding: '3rem 0' }}>
+              <p className="stories-section-subtitle">No beneficiary stories available at the moment.</p>
+            </div>
+          )}
         </div>
 
         {/* Journey Timeline */}
@@ -217,7 +206,7 @@ export default function Stories() {
             </div>
             
             <blockquote className="stories-quote-text">
-              "Every brushstroke tells a story of hope, every drawing opens a door to possibility, and every exhibition builds bridges between dreams and reality."
+              &ldquo;Every brushstroke tells a story of hope, every drawing opens a door to possibility, and every exhibition builds bridges between dreams and reality.&rdquo;
             </blockquote>
             
             <div className="stories-quote-features">

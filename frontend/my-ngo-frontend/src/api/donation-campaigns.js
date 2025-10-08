@@ -3,11 +3,15 @@ import client from "./strapi";
 export const donationCampaigns = client.collection("donation-campaigns");
 
 export function getAllDonationCampaigns() {
-  return donationCampaigns.find();
+  return donationCampaigns.find({
+    populate: ['media']
+  });
 }
 
 export function getDonationCampaignById(id) {
-  return donationCampaigns.findOne(id);
+  return donationCampaigns.findOne(id, {
+    populate: ['media']
+  });
 }
 
 export function createDonationCampaign(data) {

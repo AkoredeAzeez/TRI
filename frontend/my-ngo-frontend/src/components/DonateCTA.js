@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { Heart, Calendar, Gift, Wrench, ArrowRight } from 'lucide-react';
 
 export default function DonateCTA() {
@@ -95,12 +96,12 @@ export default function DonateCTA() {
 
         <div className="donate-cta-wrapper donate-fade-in-up" style={{animationDelay: '0.8s'}}>
           <div className="donate-button-group">
-            <button className="donate-btn-primary">
+            <Link href="/donate" className="donate-btn-primary">
               <span style={{ display: 'flex', alignItems: 'center' }}>
                 Donate Now
                 <ArrowRight className="w-5 h-5" />
               </span>
-            </button>
+            </Link>
             <button className="donate-btn-secondary">
               Learn More
             </button>
@@ -108,7 +109,7 @@ export default function DonateCTA() {
           
           <div className="donate-card-base donate-impact-message">
             <p>
-              Every donation directly impacts a child's future through art education
+              Every donation directly impacts a child&apos;s future through art education
             </p>
           </div>
         </div>

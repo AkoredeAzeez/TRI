@@ -3,11 +3,15 @@ import client from "./strapi";
 export const events = client.collection("events");
 
 export function getAllEvents() {
-  return events.find();
+  return events.find({
+    populate: ['venue', 'coverImage']
+  });
 }
 
 export function getEventById(id) {
-  return events.findOne(id);
+  return events.findOne(id, {
+    populate: ['venue', 'coverImage']
+  });
 }
 
 export function createEvent(data) {

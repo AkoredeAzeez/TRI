@@ -54,7 +54,7 @@ export default function Footer() {
             <h3 className="footer-title-21">Quick Links</h3>
             <a href="#about" className="footer-link-21">About Us</a>
             <a href="#programs" className="footer-link-21">Programs</a>
-            <a href="#donate" className="footer-link-21">Donate</a>
+            <a href="/donate" className="footer-link-21">Donate</a>
             <a href="#stories" className="footer-link-21">Impact Stories</a>
             <a href="#events" className="footer-link-21">Events</a>
             <a href="#volunteer" className="footer-link-21">Volunteer</a>
