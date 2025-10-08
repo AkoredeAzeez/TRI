@@ -3,10 +3,11 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Calendar, Tag, Users, Image as ImageIcon } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, Tag, Users, Heart } from 'lucide-react';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import { getAllPrograms } from '../../../api/programs';
+import '../../program-detail.css';
 
 export default function ProgramDetailPage() {
   const params = useParams();
@@ -16,6 +17,7 @@ export default function ProgramDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageErrors, setImageErrors] = useState(new Set());
 
   useEffect(() => {
@@ -52,6 +54,19 @@ export default function ProgramDetailPage() {
       fetchProgram();
     }
   }, [slug]);
+
+  // Auto-play slideshow
+  useEffect(() => {
+    if (!program?.gallery || program.gallery.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => 
+        prev === program.gallery.length - 1 ? 0 : prev + 1
+      );
+    }, 2000); // Change image every 2 seconds
+
+    return () => clearInterval(interval);
+  }, [program?.gallery]);
 
   const handleImageError = (imageId) => {
     setImageErrors(prev => new Set(prev).add(imageId));
@@ -119,13 +134,13 @@ export default function ProgramDetailPage() {
   return (
     <>
       <Navbar darkMode={darkMode} toggleDarkMode={() => setDarkMode(!darkMode)} />
-      <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+      <div className="program-detail-container">
         {/* Back Button */}
         <div className="container mx-auto px-4 pt-8">
           <Link href="/#programs">
-            <button className="flex items-center gap-2 text-green-700 hover:text-green-900 transition mb-6">
+            <button className="program-back-button">
               <ArrowLeft className="w-5 h-5" />
-              <span className="font-semibold">Back to Programs</span>
+              <span>Back to Programs</span>
             </button>
           </Link>
         </div>
@@ -134,20 +149,20 @@ export default function ProgramDetailPage() {
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-6xl mx-auto">
             {/* Hero Image */}
-            <div className="relative w-full h-96 rounded-2xl overflow-hidden mb-8 shadow-2xl">
+            <div className="program-hero">
               <Image
                 src={heroImageUrl}
                 alt={title || 'Program'}
                 fill
-                className="object-cover"
+                className="program-hero-image"
                 priority
                 onError={() => handleImageError('hero')}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-8">
-                <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">{title}</h1>
+              <div className="program-hero-overlay"></div>
+              <div className="program-hero-content">
+                <h1 className="program-hero-title">{title}</h1>
                 {summary && (
-                  <p className="text-xl text-gray-200 max-w-3xl">{summary}</p>
+                  <p className="program-hero-summary">{summary}</p>
                 )}
               </div>
             </div>
@@ -156,60 +171,134 @@ export default function ProgramDetailPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Main Content */}
               <div className="lg:col-span-2">
-                {/* Program Description */}
-                <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-                  <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-green-500 pb-3">
-                    About This Program
-                  </h2>
-                  {body ? (
-                    <div 
-                      className="prose prose-lg max-w-none text-gray-700 leading-relaxed"
-                      dangerouslySetInnerHTML={{ __html: body }}
-                    />
-                  ) : (
-                    <p className="text-gray-700 leading-relaxed">
-                      {summary || 'No detailed description available for this program yet.'}
-                    </p>
-                  )}
-                </div>
-
-                {/* Gallery Section */}
-                {gallery && gallery.length > 0 && (
-                  <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                      <ImageIcon className="w-6 h-6 text-green-600" />
+                {/* Gallery Slideshow */}
+                {gallery && gallery.length > 0 && gallery[currentImageIndex] && (
+                  <div className="program-gallery-container">
+                    <h2 className="program-gallery-title">
+                      <Heart />
                       Program Gallery
                     </h2>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      {gallery.filter(img => img?.url).map((image, index) => {
-                        const imageUrl = getImageUrl(image);
-                        if (!imageUrl || imageErrors.has(`gallery-${index}`)) return null;
+                    <div className="program-gallery-wrapper">
+                      {/* Main Slideshow Image */}
+                      <div className="program-slideshow">
+                        <div className="program-slideshow-inner">
+                          <Image
+                            src={gallery[currentImageIndex].url?.startsWith('http') 
+                              ? gallery[currentImageIndex].url 
+                              : `http://localhost:1337${gallery[currentImageIndex].url}`}
+                            alt={gallery[currentImageIndex].alternativeText || `Gallery image ${currentImageIndex + 1}`}
+                            fill
+                            className="program-slideshow-image"
+                          />
+                          
+                          {/* Dark overlay */}
+                          <div className="program-slideshow-overlay"></div>
+                        </div>
                         
-                        return (
-                          <div key={index} className="relative h-48 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition">
-                            <Image
-                              src={imageUrl}
-                              alt={image.alternativeText || `Gallery image ${index + 1}`}
-                              fill
-                              className="object-cover hover:scale-110 transition duration-300"
-                              onError={() => handleImageError(`gallery-${index}`)}
-                            />
-                          </div>
-                        );
-                      })}
+                        {/* Navigation Arrows */}
+                        {gallery.length > 1 && (
+                          <>
+                            <button
+                              onClick={() => setCurrentImageIndex((prev) => 
+                                prev === 0 ? gallery.length - 1 : prev - 1
+                              )}
+                              className="program-slideshow-nav prev"
+                              aria-label="Previous image"
+                            >
+                              <ChevronLeft />
+                            </button>
+                            <button
+                              onClick={() => setCurrentImageIndex((prev) => 
+                                prev === gallery.length - 1 ? 0 : prev + 1
+                              )}
+                              className="program-slideshow-nav next"
+                              aria-label="Next image"
+                            >
+                              <ChevronRight />
+                            </button>
+                          </>
+                        )}
+                        
+                        {/* Image Counter */}
+                        <div className="program-slideshow-counter">
+                          {currentImageIndex + 1} / {gallery.length}
+                        </div>
+                      </div>
+                      
+                      {/* Thumbnail Strip */}
+                      {gallery.length > 1 && (
+                        <div className="program-thumbnails">
+                          {gallery.map((image, index) => (
+                            <button
+                              key={index}
+                              onClick={() => setCurrentImageIndex(index)}
+                              className={`program-thumbnail ${currentImageIndex === index ? 'active' : ''}`}
+                            >
+                              <Image
+                                src={image.url?.startsWith('http') 
+                                  ? image.url 
+                                  : `http://localhost:1337${image.url}`}
+                                alt={`Thumbnail ${index + 1}`}
+                                fill
+                                style={{objectFit: 'cover'}}
+                              />
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
 
+                {/* Program Description - Moved after gallery */}
+                <div className="program-description">
+                  <h2 className="program-description-title">
+                    About This Program
+                  </h2>
+                  {body ? (
+                    <div 
+                      className="program-description-content"
+                      dangerouslySetInnerHTML={{ __html: body }}
+                    />
+                  ) : summary ? (
+                    <p className="program-description-content">
+                      {summary}
+                    </p>
+                  ) : (
+                    <p className="program-description-content" style={{fontStyle: 'italic', color: '#999'}}>
+                      No detailed description available for this program yet.
+                    </p>
+                  )}
+                </div>
+
                 {/* Success Stories */}
                 {story_impacts && story_impacts.length > 0 && (
-                  <div className="bg-white rounded-xl shadow-lg p-8">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-6">Success Stories</h2>
-                    <div className="space-y-4">
+                  <div className="program-stories">
+                    <h2 className="program-stories-title">
+                      <Heart />
+                      Success Stories & Impact
+                    </h2>
+                    <div>
                       {story_impacts.map((story, index) => (
-                        <div key={story.id || index} className="border-l-4 border-green-500 pl-4 py-2">
-                          <h3 className="font-bold text-gray-800">{story.title}</h3>
-                          <p className="text-gray-600 text-sm">{story.excerpt}</p>
+                        <div 
+                          key={story.id || index} 
+                          className="program-story"
+                        >
+                          <h3 className="program-story-title">{story.title}</h3>
+                          {story.excerpt && (
+                            <p className="program-story-excerpt">{story.excerpt}</p>
+                          )}
+                          {story.body && (
+                            <div 
+                              className="program-story-body"
+                              dangerouslySetInnerHTML={{ __html: story.body }}
+                            />
+                          )}
+                          {story.beneficiary && (
+                            <p className="program-story-author">
+                              - {story.beneficiary.name || 'Anonymous'}
+                            </p>
+                          )}
                         </div>
                       ))}
                     </div>
@@ -218,19 +307,19 @@ export default function ProgramDetailPage() {
               </div>
 
               {/* Sidebar */}
-              <div className="lg:col-span-1">
+              <div className="program-sidebar">
                 {/* Tags */}
                 {tags && tags.length > 0 && (
-                  <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-                    <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                      <Tag className="w-5 h-5 text-green-600" />
+                  <div className="program-sidebar-card">
+                    <h3 className="program-sidebar-title">
+                      <Tag />
                       Categories
                     </h3>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="program-tags">
                       {tags.map((tag, index) => (
                         <span 
                           key={tag.id || index}
-                          className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium"
+                          className="program-tag"
                         >
                           {tag.name}
                         </span>
@@ -241,16 +330,15 @@ export default function ProgramDetailPage() {
 
                 {/* Partners */}
                 {partners && partners.length > 0 && (
-                  <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-                    <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                      <Users className="w-5 h-5 text-green-600" />
+                  <div className="program-sidebar-card">
+                    <h3 className="program-sidebar-title">
+                      <Users />
                       Partners
                     </h3>
-                    <div className="space-y-3">
+                    <div className="program-partners">
                       {partners.map((partner, index) => (
-                        <div key={partner.id || index} className="flex items-center gap-3">
-                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                          <span className="text-gray-700">{partner.name}</span>
+                        <div key={partner.id || index} className="program-partner">
+                          <span>{partner.name}</span>
                         </div>
                       ))}
                     </div>
@@ -258,16 +346,16 @@ export default function ProgramDetailPage() {
                 )}
 
                 {/* Call to Action */}
-                <div className="bg-gradient-to-br from-green-600 to-green-700 rounded-xl shadow-lg p-6 text-white">
-                  <h3 className="text-xl font-bold mb-3">Get Involved</h3>
-                  <p className="text-green-100 mb-6">
+                <div className="program-cta">
+                  <h3 className="program-cta-title">Get Involved</h3>
+                  <p className="program-cta-text">
                     Want to support this program or learn more about how you can help?
                   </p>
-                  <div className="space-y-3">
-                    <button className="w-full px-6 py-3 bg-white text-green-700 rounded-lg font-semibold hover:bg-green-50 transition">
+                  <div className="program-cta-buttons">
+                    <button className="program-cta-button primary">
                       Donate Now
                     </button>
-                    <button className="w-full px-6 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition">
+                    <button className="program-cta-button secondary">
                       Volunteer
                     </button>
                   </div>
