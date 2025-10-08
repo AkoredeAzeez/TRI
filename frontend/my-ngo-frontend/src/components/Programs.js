@@ -1,50 +1,78 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Palette, Award, Heart, Users, Zap } from 'lucide-react';
+import { getAllPrograms } from '../api/programs';
 
 export default function Programs() {
-  const programs = [
-    {
-      title: "Art Workshops",
-      description: "Regular hands-on training sessions where children learn painting and drawing techniques while expressing their creativity through guided instruction and free exploration.",
-      image: "https://res.cloudinary.com/demo/image/upload/v1632391898/artwork_sample.jpg",
-      icon: <Palette className="w-6 h-6" />,
-      features: ["Weekly sessions", "Professional guidance", "All materials provided", "Age-appropriate techniques"],
-      stats: { number: "50+", label: "Children trained monthly" }
-    },
-    {
-      title: "Art Exhibitions",
-      description: "Showcasing children's artwork to the community and potential buyers, building confidence and providing exposure while celebrating their creative achievements.",
-      image: "https://res.cloudinary.com/demo/image/upload/v1632391898/artwork_sample2.jpg",
-      icon: <Award className="w-6 h-6" />,
-      features: ["Community showcases", "Art sales platform", "Confidence building", "Public recognition"],
-      stats: { number: "12+", label: "Exhibitions annually" }
-    },
-    {
-      title: "Benevolence Days",
-      description: "Special community outreach events where we extend our support beyond art education to address broader needs and strengthen community bonds.",
-      image: "https://res.cloudinary.com/demo/image/upload/v1632391898/artwork_sample3.jpg",
-      icon: <Heart className="w-6 h-6" />,
-      features: ["Community outreach", "Family support", "Basic needs assistance", "Social connection"],
-      stats: { number: "200+", label: "Families supported" }
-    },
-    {
-      title: "One Child Per Year Scholarship",
-      description: "Annual scholarship program providing full educational support to one deserving child through art auction proceeds, changing lives through education.",
-      image: "https://res.cloudinary.com/demo/image/upload/v1632391898/artwork_sample4.jpg",
-      icon: <Users className="w-6 h-6" />,
-      features: ["Full tuition coverage", "Educational materials", "Mentorship program", "Long-term support"],
-      stats: { number: "5", label: "Lives transformed" }
-    },
-    {
-      title: "Neurobridge",
-      description: "Learning disability diagnosis and reasonable adjustments program to ensure inclusive art education for all children, regardless of their learning differences.",
-      image: "https://res.cloudinary.com/demo/image/upload/v1632391898/artwork_sample5.jpg",
-      icon: <Zap className="w-6 h-6" />,
-      features: ["Professional assessment", "Personalized learning", "Adaptive techniques", "Inclusive environment"],
-      stats: { number: "100%", label: "Inclusivity commitment" }
-    }
-  ];
+  const [programs, setPrograms] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        setLoading(true);
+        const response = await getAllPrograms();
+        console.log('✅ Programs fetched successfully:', response);
+        console.log('📚 Number of programs:', response.data?.length || 0);
+        
+        // Log detailed program data
+        if (response.data && response.data.length > 0) {
+          response.data.forEach((prog, idx) => {
+            console.log(`📋 Program ${idx} raw data:`, prog);
+            console.log(`📋 Program ${idx} attributes:`, prog.attributes);
+          });
+        }
+        
+        setPrograms(response.data || []);
+      } catch (err) {
+        console.error('❌ Error fetching programs:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPrograms();
+  }, []);
+
+  // Map program icons (you can customize this based on tags or program type)
+  const getProgramIcon = (index) => {
+    const icons = [
+      <Palette className="w-6 h-6" key="palette" />,
+      <Award className="w-6 h-6" key="award" />,
+      <Heart className="w-6 h-6" key="heart" />,
+      <Users className="w-6 h-6" key="users" />,
+      <Zap className="w-6 h-6" key="zap" />
+    ];
+    return icons[index % icons.length];
+  };
+
+  // Map programs from Strapi to display format
+  const programsToDisplay = programs.map((program, index) => {
+    // Data is at the top level, not in attributes
+    const slug = program.slug || '';
+    const title = program.title || 'Program';
+    const summary = program.summary || 'Learn more about this program';
+    const heroImage = program.heroImage?.url || 'https://res.cloudinary.com/demo/image/upload/v1632391898/artwork_sample.jpg';
+    
+    console.log(`Program ${index}:`, {
+      title,
+      slug,
+      hasImage: !!program.heroImage,
+      hasSummary: !!program.summary
+    });
+    
+    return {
+      title,
+      summary,
+      slug,
+      heroImage,
+      icon: getProgramIcon(index)
+    };
+  });
 
   return (
     <section id="programs" className="programs-section-container">
@@ -57,13 +85,31 @@ export default function Programs() {
           </p>
         </div>
 
+        {loading && (
+          <p className="text-center9 text-lg9 mt-6-9">Loading programs...</p>
+        )}
+
+        {!loading && programsToDisplay.length === 0 && (
+          <div className="text-center9 mt-12-9">
+            <div className="card-base9 max-w-2xl9" style={{margin: '0 auto'}}>
+              <div className="card-icon9 mx-auto">
+                <Palette className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl9 mb-2-9">Programs Coming Soon</h3>
+              <p className="text-lg9">
+                We are developing exciting programs to serve our community. Check back soon for updates.
+              </p>
+            </div>
+          </div>
+        )}
+
         <div className="programs-grid-3 programs-stagger-children">
-          {programs.map((program, index) => (
+          {programsToDisplay.map((program, index) => (
             <div key={index} className="programs-card-base programs-card-hover">
               {/* Program Image with Enhanced Overlay */}
               <div className="programs-image-container">
                 <Image 
-                  src={program.image} 
+                  src={program.heroImage.startsWith('http') ? program.heroImage : `http://localhost:1337${program.heroImage}`}
                   alt={`${program.title} illustration`}
                   width={400}
                   height={200}
@@ -72,12 +118,6 @@ export default function Programs() {
                 
                 {/* Enhanced overlay with gradient */}
                 <div className="programs-image-overlay"></div>
-                
-                {/* Floating stats badge */}
-                <div className="programs-stats-badge">
-                  <div className="programs-stats-number">{program.stats.number}</div>
-                  <div className="programs-stats-label">{program.stats.label}</div>
-                </div>
                 
                 {/* Floating icon */}
                 <div className="programs-icon-badge">
@@ -88,44 +128,44 @@ export default function Programs() {
               {/* Program Content */}
               <div className="programs-card-content">
                 <h3 className="programs-card-title">{program.title}</h3>
-                <p className="programs-card-description">{program.description}</p>
-                
-                {/* Program Features */}
-                <div className="programs-feature-list">
-                  {program.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="programs-feature-item">
-                      <div className="programs-feature-dot"></div>
-                      <span className="programs-feature-text">{feature}</span>
-                    </div>
-                  ))}
-                </div>
+                <p className="programs-card-description">{program.summary}</p>
               </div>
 
               {/* Action Button */}
               <div className="programs-card-footer">
-                <button className="programs-learn-more-btn">
-                  Learn More
-                </button>
+                {program.slug ? (
+                  <Link href={`/programs/${program.slug}`}>
+                    <button className="programs-learn-more-btn">
+                      Learn More
+                    </button>
+                  </Link>
+                ) : (
+                  <button className="programs-learn-more-btn" disabled style={{opacity: 0.5, cursor: 'not-allowed'}}>
+                    Coming Soon
+                  </button>
+                )}
               </div>
             </div>
           ))}
         </div>
 
         {/* Programs Stats Section */}
-        <div className="programs-stats-grid programs-fade-in-up" style={{animationDelay: '0.8s'}}>
-          <div className="programs-stats-card">
-            <div className="programs-stats-number">5</div>
-            <div className="programs-stats-card-label">Active Programs</div>
+        {programsToDisplay.length > 0 && (
+          <div className="programs-stats-grid programs-fade-in-up" style={{animationDelay: '0.8s'}}>
+            <div className="programs-stats-card">
+              <div className="programs-stats-number">{programsToDisplay.length}</div>
+              <div className="programs-stats-card-label">Active Programs</div>
+            </div>
+            <div className="programs-stats-card">
+              <div className="programs-stats-number">500+</div>
+              <div className="programs-stats-card-label">Children Impacted</div>
+            </div>
+            <div className="programs-stats-card">
+              <div className="programs-stats-number">3</div>
+              <div className="programs-stats-card-label">Years of Service</div>
+            </div>
           </div>
-          <div className="programs-stats-card">
-            <div className="programs-stats-number">500+</div>
-            <div className="programs-stats-card-label">Children Impacted</div>
-          </div>
-          <div className="programs-stats-card">
-            <div className="programs-stats-number">3</div>
-            <div className="programs-stats-card-label">Years of Service</div>
-          </div>
-        </div>
+        )}
 
         {/* Call to Action Section */}
         <div className="programs-cta-wrapper">
