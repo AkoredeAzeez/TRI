@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { getAllDonationCampaigns } from '../../api/donation-campaigns';
+import { STRAPI_BASE_URL } from '../../api/strapi';
 import './donate.css';
 
 export default function DonatePage() {
@@ -163,7 +164,7 @@ export default function DonatePage() {
                       const mediaUrl = campaign.media?.url 
                         ? (campaign.media.url.startsWith('http') 
                             ? campaign.media.url 
-                            : `http://localhost:1337${campaign.media.url}`)
+                            : `${STRAPI_BASE_URL}${campaign.media.url}`)
                         : null;
 
                       return (

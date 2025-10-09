@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { getAllEvents } from '../api/events';
+import { STRAPI_BASE_URL } from '../api/strapi';
 
 export default function Events() {
   const [events, setEvents] = useState([]);
@@ -80,7 +81,7 @@ export default function Events() {
               const coverImageUrl = event.coverImage?.url 
                 ? (event.coverImage.url.startsWith('http') 
                     ? event.coverImage.url 
-                    : `http://localhost:1337${event.coverImage.url}`)
+                    : `${STRAPI_BASE_URL}${event.coverImage.url}`)
                 : null;
 
               return (

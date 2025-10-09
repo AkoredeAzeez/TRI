@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Palette, Award, Heart, Users, Zap } from 'lucide-react';
 import { getAllPrograms } from '../api/programs';
+import { STRAPI_BASE_URL } from '../api/strapi';
 
 export default function Programs() {
   const [programs, setPrograms] = useState([]);
@@ -109,7 +110,7 @@ export default function Programs() {
               {/* Program Image with Enhanced Overlay */}
               <div className="programs-image-container">
                 <Image 
-                  src={program.heroImage.startsWith('http') ? program.heroImage : `http://localhost:1337${program.heroImage}`}
+                  src={program.heroImage.startsWith('http') ? program.heroImage : `${STRAPI_BASE_URL}${program.heroImage}`}
                   alt={`${program.title} illustration`}
                   width={400}
                   height={200}

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { FileText, Shield, Users, Eye, Award, TrendingUp, CheckCircle, ExternalLink } from 'lucide-react';
 import { getAllReports } from '../api/reports';
 import { getAllPartners } from '../api/partners';
+import { STRAPI_BASE_URL } from '../api/strapi';
 
 export default function Transparency() {
   const [reports, setReports] = useState([]);
@@ -41,7 +42,7 @@ export default function Transparency() {
     try {
       console.log('📥 Starting download:', fileName);
       // Fetch the file
-      const response = await fetch(`http://localhost:1337${fileUrl}`);
+      const response = await fetch(`${STRAPI_BASE_URL}${fileUrl}`);
       const blob = await response.blob();
       
       // Create download link
