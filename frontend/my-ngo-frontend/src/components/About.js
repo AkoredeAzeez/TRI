@@ -81,7 +81,7 @@ export default function About() {
                 {/* Quote Bubble */}
                 <div className="founder-quote-bubble">
                   <div className="quote-content">
-                    <p className="quote-text">&quot;Every child deserves the chance to paint their future"</p>
+                    <p className="quote-text">&quot;Every child deserves the chance to paint their future&quot;</p>
                   </div>
                 </div>
               </div>

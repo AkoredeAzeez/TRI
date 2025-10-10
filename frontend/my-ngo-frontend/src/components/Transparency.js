@@ -344,7 +344,7 @@ export default function Transparency() {
           <div className="max-w-2xl9">
             <h3 className="text-xl9 mb-4-9">Questions About Our Operations?</h3>
             <p className="text-lg9 mb-6-9">
-              We're always happy to provide additional information or clarification about our work and impact.
+              We&apos;re always happy to provide additional information or clarification about our work and impact.
             </p>
             <div className="grid-29 gap-4-9">
               <button className="btn-primary9">
