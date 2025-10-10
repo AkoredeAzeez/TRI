@@ -81,7 +81,7 @@ export default function About() {
                 {/* Quote Bubble */}
                 <div className="founder-quote-bubble">
                   <div className="quote-content">
-                    <p className="quote-text">"Every child deserves the chance to paint their future"</p>
+                    <p className="quote-text">&quot;Every child deserves the chance to paint their future"</p>
                   </div>
                 </div>
               </div>
@@ -126,7 +126,7 @@ export default function About() {
                     <div className="timeline-content">
                       <span className="timeline-year">Birth of an Idea</span>
                       <p className="timeline-text">
-                        The Redraw Initiative was born - combining art education with practical solutions to fund children's schooling.
+                        The Redraw Initiative was born - combining art education with practical solutions to fund children&apos;s schooling.
                       </p>
                     </div>
                   </div>

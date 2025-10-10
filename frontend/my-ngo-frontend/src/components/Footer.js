@@ -259,7 +259,7 @@ export default function Footer() {
             </div>
             <p className="footer-copyright-21">
               © 2024 The Redraw Initiative. All rights reserved. Made with ❤️
-              for children's creativity.
+              for children&apos;s creativity.
             </p>
           </div>
         </div>

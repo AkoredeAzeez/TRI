@@ -99,7 +99,7 @@ export default function VolunteerPage() {
         <section className="volunteer-hero">
           <h1 className="volunteer-hero-title">Become a Volunteer</h1>
           <p className="volunteer-hero-subtitle">
-            Your time and talent can ignite a creative spark in a child's life. Join us in our mission to empower the next generation through art.
+            Your time and talent can ignite a creative spark in a childs life. Join us in our mission to empower the next generation through art.
           </p>
         </section>
 
