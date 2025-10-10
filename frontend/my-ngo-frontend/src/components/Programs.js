@@ -157,11 +157,11 @@ export default function Programs() {
               <div className="programs-stats-card-label">Active Programs</div>
             </div>
             <div className="programs-stats-card">
-              <div className="programs-stats-number">500+</div>
+              <div className="programs-stats-number">100+</div>
               <div className="programs-stats-card-label">Children Impacted</div>
             </div>
             <div className="programs-stats-card">
-              <div className="programs-stats-number">3</div>
+              <div className="programs-stats-number">6</div>
               <div className="programs-stats-card-label">Years of Service</div>
             </div>
           </div>

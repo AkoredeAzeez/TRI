@@ -4,13 +4,21 @@ export const beneficiaries = client.collection("beneficiaries");
 
 export function getAllBeneficiaries() {
   return beneficiaries.find({
-    populate: ['story_impacts', 'story_impacts.program', 'story_impacts.media']
+    populate: {
+      story_impacts: {
+        populate: ['program', 'media']
+      }
+    }
   });
 }
 
 export function getBeneficiaryById(id) {
   return beneficiaries.findOne(id, {
-    populate: ['story_impacts', 'story_impacts.program', 'story_impacts.media']
+    populate: {
+      story_impacts: {
+        populate: ['program', 'media']
+      }
+    }
   });
 }
 

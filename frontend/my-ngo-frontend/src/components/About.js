@@ -81,9 +81,7 @@ export default function About() {
                 {/* Quote Bubble */}
                 <div className="founder-quote-bubble">
                   <div className="quote-content">
-                    <span className="quote-mark"></span>
-                    <p className="quote-text">Every child deserves the chance to paint their future</p>
-                    <span className="quote-mark closing"></span>
+                    <p className="quote-text">"Every child deserves the chance to paint their future"</p>
                   </div>
                 </div>
               </div>
@@ -147,7 +145,7 @@ export default function About() {
                 {/* Impact Stats */}
                 <div className="founder-impact-stats">
                   <div className="stat-item">
-                    <span className="stat-number">200+</span>
+                    <span className="stat-number">100+</span>
                     <span className="stat-label">Children Empowered</span>
                   </div>
                   <div className="stat-divider"></div>

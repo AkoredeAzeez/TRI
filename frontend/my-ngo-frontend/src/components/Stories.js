@@ -14,6 +14,8 @@ export default function Stories() {
         setLoading(true);
         const response = await getAllBeneficiaries();
         console.log('✅ Beneficiaries fetched:', response);
+        console.log('📊 Number of beneficiaries:', response.data?.length || 0);
+        console.log('📝 First beneficiary details:', response.data?.[0]);
         setBeneficiaries(response.data || []);
       } catch (err) {
         console.error('Error fetching beneficiaries:', err);
@@ -29,19 +31,19 @@ export default function Stories() {
   const impactStats = [
     { 
       label: "Children Empowered", 
-      value: beneficiaries.length > 0 ? `${beneficiaries.length}+` : "150+", 
+      value: beneficiaries.length > 0 ? `${beneficiaries.length}+` : "100+", 
       icon: <Users className="w-6 h-6" />,
       description: "Young lives transformed through art"
     },
     { 
       label: "Art Workshops", 
-      value: "50+", 
+      value: "4", 
       icon: <Palette className="w-6 h-6" />,
       description: "Creative learning sessions conducted"
     },
     { 
       label: "Scholarships Funded", 
-      value: "25+", 
+      value: "33", 
       icon: <BookOpen className="w-6 h-6" />,
       description: "Educational dreams made possible"
     }
@@ -51,6 +53,10 @@ export default function Stories() {
   const testimonials = [];
   
   beneficiaries.forEach((beneficiary, beneficiaryIndex) => {
+    console.log(`🔍 Processing beneficiary ${beneficiaryIndex}:`, beneficiary);
+    console.log(`   - Name: ${beneficiary.name || beneficiary.initials}`);
+    console.log(`   - Story impacts:`, beneficiary.story_impacts);
+    
     if (beneficiary.story_impacts && beneficiary.story_impacts.length > 0) {
       beneficiary.story_impacts.forEach((storyImpact, storyIndex) => {
         const iconIndex = (beneficiaryIndex + storyIndex) % 3;
@@ -66,6 +72,9 @@ export default function Stories() {
       });
     }
   });
+
+  console.log('📋 Total testimonials built:', testimonials.length);
+  console.log('📋 Testimonials:', testimonials);
 
   const milestones = [
     { year: "2021", event: "Founded with 10 children", highlight: true },
