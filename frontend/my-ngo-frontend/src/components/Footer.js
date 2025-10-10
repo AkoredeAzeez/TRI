@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -57,7 +58,7 @@ export default function Footer() {
             <a href="/donate" className="footer-link-21">Donate</a>
             <a href="#stories" className="footer-link-21">Impact Stories</a>
             <a href="#events" className="footer-link-21">Events</a>
-            <a href="#volunteer" className="footer-link-21">Volunteer</a>
+            <Link href="/volunteer" className="footer-link-21">Volunteer</Link>
           </div>
 
           {/* Contact Section */}
