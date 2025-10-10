@@ -1,5 +1,10 @@
-import { strapi } from '@strapi/client'
+import { strapi } from "@strapi/client";
 
-const client = strapi({ baseURL: 'http://localhost:1337/api' })
+export const STRAPI_BASE_URL =
+  "https://integral-amusement-0416bbb889.strapiapp.com";
 
-export default client
+const client = strapi({
+  baseURL: `${STRAPI_BASE_URL}/api`,
+});
+
+export default client;

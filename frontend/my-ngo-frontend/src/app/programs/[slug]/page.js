@@ -7,6 +7,7 @@ import { ArrowLeft, ChevronLeft, ChevronRight, Tag, Users, Heart } from 'lucide-
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import { getAllPrograms } from '../../../api/programs';
+import { STRAPI_BASE_URL } from '../../../api/strapi';
 import '../../program-detail.css';
 
 export default function ProgramDetailPage() {
@@ -121,14 +122,14 @@ export default function ProgramDetailPage() {
   const heroImageUrl = heroImage?.url 
     ? (heroImage.url.startsWith('http') 
         ? heroImage.url 
-        : `http://localhost:1337${heroImage.url}`)
+        : `${STRAPI_BASE_URL}${heroImage.url}`)
     : 'https://res.cloudinary.com/demo/image/upload/v1632391898/artwork_sample.jpg';
 
   const getImageUrl = (image) => {
     if (!image?.url) return null;
     return image.url.startsWith('http') 
       ? image.url 
-      : `http://localhost:1337${image.url}`;
+      : `${STRAPI_BASE_URL}${image.url}`;
   };
 
   return (
@@ -185,7 +186,7 @@ export default function ProgramDetailPage() {
                           <Image
                             src={gallery[currentImageIndex].url?.startsWith('http') 
                               ? gallery[currentImageIndex].url 
-                              : `http://localhost:1337${gallery[currentImageIndex].url}`}
+                              : `${STRAPI_BASE_URL}${gallery[currentImageIndex].url}`}
                             alt={gallery[currentImageIndex].alternativeText || `Gallery image ${currentImageIndex + 1}`}
                             fill
                             className="program-slideshow-image"
@@ -237,7 +238,7 @@ export default function ProgramDetailPage() {
                               <Image
                                 src={image.url?.startsWith('http') 
                                   ? image.url 
-                                  : `http://localhost:1337${image.url}`}
+                                  : `${STRAPI_BASE_URL}${image.url}`}
                                 alt={`Thumbnail ${index + 1}`}
                                 fill
                                 style={{objectFit: 'cover'}}
@@ -355,9 +356,9 @@ export default function ProgramDetailPage() {
                     <Link href="/donate" className="program-cta-button primary">
                       Donate Now
                     </Link>
-                    <button className="program-cta-button secondary">
+                    <Link href="/volunteer" className="program-cta-button secondary">
                       Volunteer
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

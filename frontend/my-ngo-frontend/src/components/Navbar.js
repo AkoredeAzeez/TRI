@@ -63,7 +63,7 @@ export default function Navbar() {
     { name: 'Programs', href: '#programs' },
     { name: 'Stories', href: '#stories' },
     { name: 'Events', href: '#events' },
-    { name: 'Volunteer', href: '#volunteercta' },
+    { name: 'Volunteer', href: '/volunteer' },
     { name: 'Contact', href: '#contact' }
   ];
 
@@ -83,6 +83,8 @@ export default function Navbar() {
         // We're on another page, navigate to homepage with hash
         router.push('/' + href);
       }
+    } else {
+      router.push(href);
     }
   };
 
