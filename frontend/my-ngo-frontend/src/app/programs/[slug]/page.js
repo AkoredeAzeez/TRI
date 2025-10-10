@@ -356,9 +356,9 @@ export default function ProgramDetailPage() {
                     <Link href="/donate" className="program-cta-button primary">
                       Donate Now
                     </Link>
-                    <button className="program-cta-button secondary">
+                    <Link href="/volunteer" className="program-cta-button secondary">
                       Volunteer
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

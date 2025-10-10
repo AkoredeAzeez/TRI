@@ -1,0 +1,199 @@
+/* Volunteer Page Styles */
+
+.volunteer-page {
+  background: #f8f9fa;
+  color: #1B5E20;
+}
+
+/* Hero Section */
+.volunteer-hero {
+  background: linear-gradient(135deg, #1B5E20, #8BC34A);
+  padding: 6rem 2rem 4rem;
+  text-align: center;
+  color: #ffffff;
+}
+
+.volunteer-hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.volunteer-hero-subtitle {
+  font-size: 1.25rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Main Content */
+.volunteer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.volunteer-section {
+  margin-bottom: 4rem;
+}
+
+.volunteer-section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1B5E20;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+/* Roles Section */
+.volunteer-roles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.volunteer-role-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 25px rgba(27, 94, 32, 0.1);
+  transition: all 0.3s ease;
+  border: 2px solid #8BC34A;
+}
+
+.volunteer-role-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(27, 94, 32, 0.2);
+}
+
+.volunteer-role-icon {
+  background: #8BC34A;
+  color: #ffffff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.volunteer-role-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.volunteer-role-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.volunteer-role-tasks {
+  list-style: none;
+  padding: 0;
+}
+
+.volunteer-role-task {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.volunteer-role-task::before {
+  content: '✓';
+  color: #8BC34A;
+  font-weight: 700;
+}
+
+/* Form Section */
+.volunteer-form-container {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 3rem;
+  box-shadow: 0 8px 25px rgba(27, 94, 32, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.volunteer-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.volunteer-form-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.volunteer-form-input,
+.volunteer-form-textarea,
+.volunteer-form-select {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.volunteer-form-input:focus,
+.volunteer-form-textarea:focus,
+.volunteer-form-select:focus {
+  outline: none;
+  border-color: #8BC34A;
+  box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.1);
+}
+
+.volunteer-form-textarea {
+  min-height: 120px;
+}
+
+.volunteer-form-submit {
+  width: 100%;
+  padding: 1.25rem 2rem;
+  background: linear-gradient(135deg, #8BC34A, #1B5E20);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.volunteer-form-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(139, 195, 74, 0.3);
+}
+
+/* FAQ Section */
+.volunteer-faq-item {
+  background: #ffffff;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid #e0e0e0;
+}
+
+.volunteer-faq-question {
+  width: 100%;
+  text-align: left;
+  padding: 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.volunteer-faq-answer {
+  padding: 0 1.5rem 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+}

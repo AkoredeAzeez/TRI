@@ -181,12 +181,12 @@ export default function Programs() {
               We are constantly evolving and adding new programs to better serve our community. More innovative programs may be added in the coming months as we continue to grow and respond to the needs of the children we serve.
             </p>
             <div className="programs-cta-buttons">
-              <button className="programs-cta-btn-primary">
+              <Link href="/volunteer" className="programs-cta-btn-primary">
                 Get Involved
-              </button>
-              <button className="programs-cta-btn-secondary">
+              </Link>
+              <Link href="/#stories" className="programs-cta-btn-secondary">
                 View Success Stories
-              </button>
+              </Link>
             </div>
           </div>
         </div>

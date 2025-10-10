@@ -102,9 +102,9 @@ export default function DonateCTA() {
                 <ArrowRight className="w-5 h-5" />
               </span>
             </Link>
-            <button className="donate-btn-secondary">
+            <Link href="/volunteer" className="donate-btn-secondary">
               Learn More
-            </button>
+            </Link>
           </div>
           
           <div className="donate-card-base donate-impact-message">

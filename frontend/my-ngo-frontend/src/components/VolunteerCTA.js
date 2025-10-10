@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 export default function VolunteerCTA() {
   return (
     <section id="volunteercta" className="volunteer-cta7">
@@ -9,9 +11,9 @@ export default function VolunteerCTA() {
           Join our mission to empower children through art. Whether you are an artist, educator, or simply 
           passionate about making a difference, we welcome you to be part of our community.
         </p>
-        <button className="volunteer-btn7">
+        <Link href="/volunteer" className="volunteer-btn7">
           Sign Up to Volunteer
-        </button>
+        </Link>
       </div>
     </section>
   );

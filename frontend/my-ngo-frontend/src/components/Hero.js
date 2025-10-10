@@ -21,8 +21,12 @@ export default function Hero() {
           Join us to give underprivileged children the tools to create their future
         </p>
         <div className="hero-buttons">
-          <Link href="/donate" className="btn-futuristic">Donate Now</Link>
-          <button className="btn-ghost">Volunteer</button>
+          <Link href="/donate" className="btn-futuristic">
+            Donate Now
+          </Link>
+          <Link href="/volunteer" className="btn-ghost">
+            Volunteer
+          </Link>
         </div>
       </div>
       
