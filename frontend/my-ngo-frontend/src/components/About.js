@@ -1,9 +1,41 @@
 'use client';
+import { useState } from 'react';
 import { Heart, Globe, Zap, User } from 'lucide-react';
 import Image from 'next/image';
 
 export default function About() {
-  const values = ['Creativity', 'Empowerment', 'Community', 'Opportunity', 'Equity', 'Sustainability'];
+  const [activeValue, setActiveValue] = useState(null);
+
+  const values = [
+    { 
+      name: 'Creativity', 
+      message: 'We foster imagination and innovation, encouraging children to express themselves through art.' 
+    },
+    { 
+      name: 'Empowerment', 
+      message: 'We equip children with skills and confidence to shape their own futures and believe in their potential.' 
+    },
+    { 
+      name: 'Community', 
+      message: 'We build supportive networks where children, families, and volunteers come together to create positive change.' 
+    },
+    { 
+      name: 'Opportunity', 
+      message: 'We open doors to education and experiences that would otherwise be out of reach for underprivileged children.' 
+    },
+    { 
+      name: 'Equity', 
+      message: 'We believe every child deserves equal access to quality art education, regardless of their background.' 
+    },
+    { 
+      name: 'Sustainability', 
+      message: 'We create lasting impact through our art auction model, enabling children to fund their own education.' 
+    }
+  ];
+
+  const handleValueClick = (index) => {
+    setActiveValue(activeValue === index ? null : index);
+  };
 
   return (
     <section id="about" className="about-redesign">
@@ -167,19 +199,43 @@ export default function About() {
         {/* Core Values Section */}
         <div className="values-section">
           <h3 className="values-title">Our Core Values</h3>
+          <p className="values-subtitle">Click to learn more about each value</p>
           <div className="values-grid">
             {values.map((value, index) => (
               <div
-                key={value}
+                key={value.name}
                 className="value-item"
                 style={{animationDelay: `${index * 100}ms`}}
+                onClick={() => handleValueClick(index)}
               >
                 <div className="value-dot"></div>
-                <h4 className="value-text">{value}</h4>
+                <h4 className="value-text">{value.name}</h4>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Value Modal Popup */}
+        {activeValue !== null && (
+          <div className="value-modal-overlay" onClick={() => setActiveValue(null)}>
+            <div className="value-modal-content" onClick={(e) => e.stopPropagation()}>
+              <button className="value-modal-close" onClick={() => setActiveValue(null)}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
+              <div className="value-modal-header">
+                <div className="value-modal-icon">
+                  <div className="value-dot large"></div>
+                </div>
+                <h3 className="value-modal-title">{values[activeValue].name}</h3>
+              </div>
+              <div className="value-modal-body">
+                <p className="value-modal-message">{values[activeValue].message}</p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
