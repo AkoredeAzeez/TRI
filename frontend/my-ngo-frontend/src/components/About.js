@@ -199,23 +199,43 @@ export default function About() {
         {/* Core Values Section */}
         <div className="values-section">
           <h3 className="values-title">Our Core Values</h3>
+          <p className="values-subtitle">Click to learn more about each value</p>
           <div className="values-grid">
             {values.map((value, index) => (
               <div
                 key={value.name}
-                className={`value-item ${activeValue === index ? 'active' : ''}`}
+                className="value-item"
                 style={{animationDelay: `${index * 100}ms`}}
                 onClick={() => handleValueClick(index)}
               >
                 <div className="value-dot"></div>
                 <h4 className="value-text">{value.name}</h4>
-                <div className="value-tooltip">
-                  <p className="value-message">{value.message}</p>
-                </div>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Value Modal Popup */}
+        {activeValue !== null && (
+          <div className="value-modal-overlay" onClick={() => setActiveValue(null)}>
+            <div className="value-modal-content" onClick={(e) => e.stopPropagation()}>
+              <button className="value-modal-close" onClick={() => setActiveValue(null)}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+              </button>
+              <div className="value-modal-header">
+                <div className="value-modal-icon">
+                  <div className="value-dot large"></div>
+                </div>
+                <h3 className="value-modal-title">{values[activeValue].name}</h3>
+              </div>
+              <div className="value-modal-body">
+                <p className="value-modal-message">{values[activeValue].message}</p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
