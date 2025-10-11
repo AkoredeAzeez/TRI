@@ -2,10 +2,19 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: [
-      "res.cloudinary.com",
-      "localhost",
-      "integral-amusement-0416bbb889.media.strapiapp.com",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+      },
+      {
+        protocol: "https",
+        hostname: "integral-amusement-0416bbb889.media.strapiapp.com",
+      },
     ],
   },
 };
