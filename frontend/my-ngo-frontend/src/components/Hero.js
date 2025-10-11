@@ -10,16 +10,6 @@ export default function Hero() {
 
       {/* Content */}
       <div className="hero-content">
-        <div className="hero-icon">
-          <Image 
-            src="/img/redraw-logo.png"
-            alt="The Redraw Initiative Logo"
-            width={100}
-            height={100}
-            priority
-            style={{ objectFit: 'contain' }}
-          />
-        </div>
         <h1 className="hero-title gradient-text">
           Empowering Children Through Art
         </h1>
