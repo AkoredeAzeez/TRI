@@ -97,7 +97,7 @@ export default function ContactPage() {
           </form>
           {submitStatus === 'success' && (
             <p className="submit-message success">
-              Thank you for your message! We'll get back to you soon.
+              Thank you for your message! We&apos;ll get back to you soon.
             </p>
           )}
           {submitStatus === 'error' && (

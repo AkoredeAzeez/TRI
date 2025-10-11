@@ -168,7 +168,7 @@ export default function VolunteerPage() {
                 </button>
                 {submitStatus === 'success' && (
                   <p className="submit-message success" style={{marginTop: '1rem'}}>
-                    Thank you for your application! We'll be in touch soon.
+                    Thank you for your application! We&apos;ll be in touch soon.
                   </p>
                 )}
                 {submitStatus === 'error' && (
