@@ -108,12 +108,20 @@ export default function Navbar() {
                   src="/img/redraw-logo.png"
                   alt="Redraw Logo"
                   width={100}
-                  height={60}
+                  height={100}
                   priority
                 />
               </div>
               <span className="navbar-brand-name navbar-brand-desktop">THE REDRAW INITIATIVE</span>
-              <span className="navbar-brand-name navbar-brand-mobile">TRI</span>
+              <div className="navbar-brand-mobile-logo">
+                <Image 
+                  src="/img/redraw-logo.png"
+                  alt="Redraw Logo"
+                  width={100}
+                  height={70}
+                  priority
+                />
+              </div>
             </Link>
           </div>
 

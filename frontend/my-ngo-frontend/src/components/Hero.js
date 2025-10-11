@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -11,7 +11,14 @@ export default function Hero() {
       {/* Content */}
       <div className="hero-content">
         <div className="hero-icon">
-          <Sparkles className="w-10 h-10 text-white" />
+          <Image 
+            src="/img/redraw-logo.png"
+            alt="The Redraw Initiative Logo"
+            width={100}
+            height={100}
+            priority
+            style={{ objectFit: 'contain' }}
+          />
         </div>
         <h1 className="hero-title gradient-text">
           Empowering Children Through Art
