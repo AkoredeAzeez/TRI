@@ -1,9 +1,41 @@
 'use client';
+import { useState } from 'react';
 import { Heart, Globe, Zap, User } from 'lucide-react';
 import Image from 'next/image';
 
 export default function About() {
-  const values = ['Creativity', 'Empowerment', 'Community', 'Opportunity', 'Equity', 'Sustainability'];
+  const [activeValue, setActiveValue] = useState(null);
+
+  const values = [
+    { 
+      name: 'Creativity', 
+      message: 'We foster imagination and innovation, encouraging children to express themselves through art.' 
+    },
+    { 
+      name: 'Empowerment', 
+      message: 'We equip children with skills and confidence to shape their own futures and believe in their potential.' 
+    },
+    { 
+      name: 'Community', 
+      message: 'We build supportive networks where children, families, and volunteers come together to create positive change.' 
+    },
+    { 
+      name: 'Opportunity', 
+      message: 'We open doors to education and experiences that would otherwise be out of reach for underprivileged children.' 
+    },
+    { 
+      name: 'Equity', 
+      message: 'We believe every child deserves equal access to quality art education, regardless of their background.' 
+    },
+    { 
+      name: 'Sustainability', 
+      message: 'We create lasting impact through our art auction model, enabling children to fund their own education.' 
+    }
+  ];
+
+  const handleValueClick = (index) => {
+    setActiveValue(activeValue === index ? null : index);
+  };
 
   return (
     <section id="about" className="about-redesign">
@@ -170,12 +202,16 @@ export default function About() {
           <div className="values-grid">
             {values.map((value, index) => (
               <div
-                key={value}
-                className="value-item"
+                key={value.name}
+                className={`value-item ${activeValue === index ? 'active' : ''}`}
                 style={{animationDelay: `${index * 100}ms`}}
+                onClick={() => handleValueClick(index)}
               >
                 <div className="value-dot"></div>
-                <h4 className="value-text">{value}</h4>
+                <h4 className="value-text">{value.name}</h4>
+                <div className="value-tooltip">
+                  <p className="value-message">{value.message}</p>
+                </div>
               </div>
             ))}
           </div>
