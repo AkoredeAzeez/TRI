@@ -775,6 +775,38 @@ export interface ApiTagTag extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiVolunteerVolunteer extends Struct.CollectionTypeSchema {
+  collectionName: 'volunteers';
+  info: {
+    displayName: 'Volunteer';
+    pluralName: 'volunteers';
+    singularName: 'volunteer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.String & Schema.Attribute.Required;
+    interest: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::volunteer.volunteer'
+    > &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.Text;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    phone: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1295,6 +1327,7 @@ declare module '@strapi/strapi' {
       'api::report.report': ApiReportReport;
       'api::story-impact.story-impact': ApiStoryImpactStoryImpact;
       'api::tag.tag': ApiTagTag;
+      'api::volunteer.volunteer': ApiVolunteerVolunteer;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { submitVolunteerApplication } from '../../api/volunteers';
 import { Palette, Heart, Mic, Camera, PenTool, ChevronDown } from 'lucide-react';
 import './volunteer.css';
 
@@ -79,17 +80,29 @@ export default function VolunteerPage() {
     interest: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // In a real application, you would handle form submission here (e.g., send to an API)
-    alert('Thank you for your interest! We will be in touch soon.');
-    setFormData({ name: '', email: '', phone: '', interest: '', message: '' });
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      await submitVolunteerApplication(formData);
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', phone: '', interest: '', message: '' });
+    } catch (error) {
+      console.error('Failed to submit volunteer application:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -150,7 +163,19 @@ export default function VolunteerPage() {
                   <label htmlFor="message" className="volunteer-form-label">Tell us why you want to volunteer (Optional)</label>
                   <textarea id="message" name="message" value={formData.message} onChange={handleInputChange} className="volunteer-form-textarea"></textarea>
                 </div>
-                <button type="submit" className="volunteer-form-submit">Submit Application</button>
+                <button type="submit" className="volunteer-form-submit" disabled={isSubmitting}>
+                  {isSubmitting ? 'Submitting...' : 'Submit Application'}
+                </button>
+                {submitStatus === 'success' && (
+                  <p className="submit-message success" style={{marginTop: '1rem'}}>
+                    Thank you for your application! We'll be in touch soon.
+                  </p>
+                )}
+                {submitStatus === 'error' && (
+                  <p className="submit-message error" style={{marginTop: '1rem'}}>
+                    Something went wrong. Please try again later.
+                  </p>
+                )}
               </form>
             </div>
           </section>
