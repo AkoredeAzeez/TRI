@@ -78,10 +78,10 @@ export default function Stories() {
   console.log('📋 Testimonials:', testimonials);
 
   const milestones = [
-    { year: "2021", event: "Founded with 10 children", highlight: true },
-    { year: "2022", event: "First art exhibition held", highlight: false },
-    { year: "2023", event: "Launched scholarship program", highlight: false },
-    { year: "2024", event: "Reached 150+ children impacted", highlight: true }
+    { year: "2018", event: "Founded with 10 children", highlight: true },
+    { year: "2019", event: "First art exhibition held", highlight: false },
+    { year: "2024", event: "Launched scholarship program", highlight: false },
+    { year: "2025", event: "Reached 150+ children impacted", highlight: true }
   ];
 
   if (loading) {
