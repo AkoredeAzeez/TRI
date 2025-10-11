@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Heart, Star, Award, Palette, Users, BookOpen } from 'lucide-react';
 import { getAllBeneficiaries } from '../api/beneficiaries';
 
@@ -238,12 +239,12 @@ export default function Stories() {
         {/* Call to Action */}
         <div className="stories-cta-wrapper">
           <div className="stories-cta-buttons">
-            <button className="stories-cta-btn-primary">
+            <Link href="/contact" className="stories-cta-btn-primary">
               Share Your Story
-            </button>
-            <button className="stories-cta-btn-secondary">
+            </Link>
+            <Link href="/#programs" className="stories-cta-btn-secondary">
               View Gallery
-            </button>
+            </Link>
           </div>
         </div>
       </div>

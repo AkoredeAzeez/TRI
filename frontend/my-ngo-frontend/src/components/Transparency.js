@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { FileText, Shield, Users, Eye, Award, TrendingUp, CheckCircle, ExternalLink } from 'lucide-react';
 import { getAllReports } from '../api/reports';
 import { getAllPartners } from '../api/partners';
@@ -347,12 +348,12 @@ export default function Transparency() {
               We&apos;re always happy to provide additional information or clarification about our work and impact.
             </p>
             <div className="grid-29 gap-4-9">
-              <button className="btn-primary9">
+              <Link href="/contact" className="btn-primary9">
                 Contact Us
-              </button>
-              <button className="btn-secondary9">
+              </Link>
+              <Link href="/contact" className="btn-secondary9">
                 Request Information
-              </button>
+              </Link>
             </div>
           </div>
         </div>
