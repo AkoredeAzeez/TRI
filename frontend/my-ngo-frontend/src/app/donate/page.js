@@ -359,8 +359,7 @@ export default function DonatePage() {
                     </button>
 
                     <p className="donate-secure-note">
-                      🔒 Secure payment powered by Paystack (Integration
-                      pending)
+                      🔒 Secure payment powered by Paystack
                     </p>
                   </form>
                 </div>
